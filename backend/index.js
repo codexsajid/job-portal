@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({
     origin: "https://job-portal-1-fapb.onrender.com",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
 
