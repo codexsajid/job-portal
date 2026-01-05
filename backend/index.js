@@ -19,8 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const allowedOrigins = [
+    "https://job-portal-1-fapb.onrender.com",
+    "http://localhost:5173"
+];
+
 app.use(cors({
-    origin: "https://job-portal-1-fapb.onrender.com",
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));

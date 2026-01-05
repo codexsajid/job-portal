@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cloudinary from "../utile/cloudinary.js"
 import getDataUri from "../utile/datauri.js";
+import sendMail from "../utile/sendMail.js";
+import htmlBody from "../utile/htmlBody.js";
 
 export const register = async (req, res) => {
     try {
@@ -54,7 +56,8 @@ export const register = async (req, res) => {
             message: "User registered successfully.",
             success: true,
             user: newUser,
-        });
+        }, sendMail(email, "Welcome to our Job Portal Site", "", htmlBody(fullname)),);
+
     } catch (error) {
         return res.status(500).json({ message: "Server Error", error: error.message });
     }

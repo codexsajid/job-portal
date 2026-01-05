@@ -11,6 +11,11 @@ build/
 .env.development
 .env.production
 
+# Environment files
+backend/.env
+frontend/.env
+.env
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
