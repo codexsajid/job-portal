@@ -20,8 +20,8 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const allowedOrigins = [
+    "http://localhost:5173",
     "https://job-portal-1-fapb.onrender.com",
-    "http://localhost:5173"
 ];
 
 app.use(cors({
