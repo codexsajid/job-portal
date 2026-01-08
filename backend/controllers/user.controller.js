@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cloudinary from "../utile/cloudinary.js"
 import getDataUri from "../utile/datauri.js";
-import sendMail from "../utile/sendMail.js";
-import htmlBody from "../utile/htmlBody.js";
+import { generateOtp } from "./otp.controller.js";
+import { sendOtpEmail, sendWelcomeEmail } from "../middleware/emailCode.js";
 
 export const register = async (req, res) => {
     try {
@@ -15,7 +15,6 @@ export const register = async (req, res) => {
                 success: false,
             });
         }
-
         const file = req.file;
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
@@ -26,6 +25,7 @@ export const register = async (req, res) => {
                 success: false,
             });
         }
+
         const userExists = await User.findOne({ email });
         if (userExists) {
             return res.status(400).json({
@@ -33,35 +33,86 @@ export const register = async (req, res) => {
                 success: false,
             });
         }
-        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const otp = generateOtp()
+
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, salt);
 
         const newUser = await User.create({
             fullname,
             email,
             phoneNumber,
-            password: hashedPassword,
+            password: hashPassword,
             role,
+            otp,
+            otpExpiry: Date.now() + 5 * 60 * 1000,
             profile: { profilePhoto: cloudResponse.secure_url }
         });
-
-
         if (!newUser) {
             return res.status(400).json({
-                message: "Error creating user.",
+                message: "User registration  failed.",
                 success: false,
             });
+
         }
+        await sendOtpEmail(newUser.email, newUser.fullname, otp);
 
         return res.status(201).json({
-            message: "User registered successfully.",
+            message: "Account created. Check your email for OTP verification.",
             success: true,
-            user: newUser,
-        }, sendMail(email, "Welcome to our Job Portal Site", "", htmlBody(fullname)),);
+        });
 
     } catch (error) {
         return res.status(500).json({ message: "Server Error", error: error.message });
     }
 };
+
+export const verifyOtp = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+
+        if (!email || !otp) {
+            return res.status(400).json({ message: "Email & OTP required", success: false });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) return res.status(404).json({ message: "User not found", success: false });
+
+        if (user.otpVerify === true) {
+            return res.status(400).json({ message: "Already verified", success: false });
+        }
+
+        if (!user.otp || !user.otpExpiry) {
+            return res.status(400).json({ message: "OTP not generated", success: false });
+        }
+
+        if (user.otp !== otp) {
+            return res.status(400).json({ message: "Invalid OTP", success: false });
+        }
+
+        if (user.otpExpiry < Date.now()) {
+            return res.status(400).json({ message: "OTP expired", success: false });
+        }
+
+        // Mark verified
+        user.otp = null;
+        user.otpExpiry = null;
+        user.otpVerify = true;
+        await user.save();
+
+        await sendWelcomeEmail(user.email, user.fullname);
+
+        return res.status(200).json({
+            message: "OTP verified successfully",
+            success: true
+        });
+
+    } catch (error) {
+        return res.status(500).json({ message: "Server Error", error: error.message });
+    }
+};
+
 
 export const login = async (req, res) => {
     try {
@@ -96,9 +147,13 @@ export const login = async (req, res) => {
             });
         }
 
-        const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-            expiresIn: "1d",
-        });
+        const token = jwt.sign(
+            {
+                userId: user._id
+            }, process.env.SECRET_KEY,
+            {
+                expiresIn: "1d",
+            });
 
         user = {
             _id: user._id,

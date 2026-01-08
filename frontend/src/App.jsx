@@ -15,24 +15,52 @@ import CompanySetup from './components/recruiter/CompanySetup'
 import AdminJob from './components/recruiter/AdminJobs'
 import CreateAdminJob from './components/recruiter/CreateAdminJob'
 import Applicants from './components/recruiter/Applicants'
-import ProtectedRoute from './components/hook/ProtectedRoute'
-
+import ForgotPassword from './components/auth/ForgotPassword'
+import Otp from './components/auth/Otp'
+import NewPassword from './components/auth/NewPassword'
+import ProtectedRoute from './middleware/ProtectedRoute'
+import OtpGuard from "./middleware/otpGuard";
+import PublicRoute from './middleware/publicRoute'
 
 function App() {
 
-  
+
   const appRouter = createBrowserRouter([
     {
       path: '/',
       element: <Home />
     },
     {
-      path: '/login',
-      element: <Login />
+      path: "/login",
+      element: (
+        <PublicRoute>
+          <Login />
+        </PublicRoute>
+      )
     },
     {
-      path: '/signup',
-      element: <Signup />
+      path: "/signup",
+      element: (
+        <PublicRoute>
+          <Signup />
+        </PublicRoute>
+      )
+    },
+    {
+      path: '/forgot-password',
+      element: <ForgotPassword />
+    },
+    {
+      path: "/otp",
+      element: (
+        <OtpGuard>
+          <Otp />
+        </OtpGuard>
+      )
+    },
+    {
+      path: '/newPassword',
+      element: <NewPassword />
     },
     {
       path: '/jobs',
@@ -54,29 +82,52 @@ function App() {
     //Recruiter
     {
       path: '/admin/companies',
-      element: <ProtectedRoute><Companies /></ProtectedRoute>
+      element: (
+        <ProtectedRoute role="recruiter">
+          <Companies />
+        </ProtectedRoute>
+      )
     },
     {
       path: "/admin/companies/create",
-      element: <ProtectedRoute> <CreateCompany /></ProtectedRoute>
+      element: (
+        <ProtectedRoute role="recruiter">
+          <CreateCompany />
+        </ProtectedRoute>
+      )
     },
     {
       path: "/admin/companies/:id",
-      element: <ProtectedRoute><CompanySetup /></ProtectedRoute>
+      element: (
+        <ProtectedRoute role="recruiter">
+          <CompanySetup />
+        </ProtectedRoute>
+      )
     },
     {
       path: "/admin/jobs",
-      element: <ProtectedRoute><AdminJob /></ProtectedRoute>
+      element: (
+        <ProtectedRoute role="recruiter">
+          <AdminJob />
+        </ProtectedRoute>
+      )
     },
     {
       path: "/admin/job/create",
-      element: <CreateAdminJob />
+      element: (
+        <ProtectedRoute role="recruiter">
+          <CreateAdminJob />
+        </ProtectedRoute>
+      )
     },
     {
       path: "/admin/jobs/:id/applicants",
-      element: <ProtectedRoute><Applicants /></ProtectedRoute>
+      element: (
+        <ProtectedRoute role="recruiter">
+          <Applicants />
+        </ProtectedRoute>
+      )
     },
-
 
   ])
 

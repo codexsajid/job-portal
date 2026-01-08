@@ -57,11 +57,12 @@ const Signup = () => {
 
             if (res.data.success) {
                 toast.success(res.data.message);
-                navigate("/login");
+                localStorage.setItem("emailForOtp", input.email);
+                navigate("/otp");
             }
         } catch (error) {
-            console.log(error.response?.data);
-            toast.error(error.response?.data?.message || "Signup failed");
+            console.log(error?.response?.data);
+            toast.error(error?.response?.data?.message || "Signup failed");
         }
         finally {
             setLoading(false)
@@ -108,7 +109,7 @@ const Signup = () => {
                     <div className='my-2'>
                         <Label className='my-2'>Phone Number</Label>
                         <Input
-                            type="number"
+                            type="text"
                             value={input.phoneNumber}
                             name="phoneNumber"
                             onChange={changeEventHandler}

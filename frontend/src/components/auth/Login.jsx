@@ -78,30 +78,35 @@ const Login = () => {
             </div>
           </div>
           <div className='flex items-center justify-between'>
-            <RadioGroup className={`flex items-center gap-4 my-4`}>
-              <div className="flex items-center space-x-2">
-                <Input
-                  type="radio"
-                  name="role"
-                  value="user"
-                  checked={input.role == "user"}
-                  onChange={changeEventHandler}
-                  className={`cursor-pointer`}
-                />
-                <Label htmlFor="User">User</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Input
-                  type="radio"
-                  name="role"
-                  value="recruiter"
-                  checked={input.role == "recruiter"}
-                  onChange={changeEventHandler}
-                  className={`cursor-pointer`}
-                />
-                <Label htmlFor="Recruiter">Recruiter</Label>
-              </div>
-            </RadioGroup>
+            <div className='flex items-center justify-between'>
+              <RadioGroup className={`flex items-center gap-4 my-4`}>
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="radio"
+                    name="role"
+                    value="user"
+                    checked={input.role == "user"}
+                    onChange={changeEventHandler}
+                    className={`cursor-pointer`}
+                  />
+                  <Label htmlFor="User">User</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="radio"
+                    name="role"
+                    value="recruiter"
+                    checked={input.role == "recruiter"}
+                    onChange={changeEventHandler}
+                    className={`cursor-pointer`}
+                  />
+                  <Label htmlFor="Recruiter">Recruiter</Label>
+                </div>
+              </RadioGroup>
+            </div>
+            <div className='pr-2 cursor-pointer'>
+              <p className='text-blue-500' onClick={() => navigate('/forgot-password')}>forgot password</p>
+            </div>
           </div>
           {
             loading ? <Button type="submit" className={`w-full my-4`}><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className={`w-full my-4`}>Login</Button>
