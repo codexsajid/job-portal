@@ -18,9 +18,9 @@ import Applicants from './components/recruiter/Applicants'
 import ForgotPassword from './components/auth/ForgotPassword'
 import Otp from './components/auth/Otp'
 import NewPassword from './components/auth/NewPassword'
-import ProtectedRoute from './components/middleware/ProtectedRoute.jsx'
-import OtpGuard from "./components/middleware/otpGuard.js";
-import PublicRoute from './components/middleware/publicRoute.js'
+import ProtectedRoute from './components/middleware/ProtectedRoute'
+import OtpGuard from "./components/middleware/otpGuard";
+import PublicRoute from './components/middleware/publicRoute'
 
 function App() {
 
