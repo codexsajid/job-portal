@@ -8,7 +8,7 @@
 // import.meta.env.VITE_API_URL || 
 
 const BASE_URL =
-    "https://job-portal-zikz.onrender.com" || "http://localhost:8000";
+    import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export const USER_END_POINT_URL = `${BASE_URL}/api/user`;
 export const JOB_END_POINT_URL = `${BASE_URL}/api/job`;
