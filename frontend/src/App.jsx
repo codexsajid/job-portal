@@ -1,7 +1,6 @@
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
-import Navbar from './components/shared/Navbar'
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Home from './components/Home'
@@ -19,8 +18,8 @@ import ForgotPassword from './components/auth/ForgotPassword'
 import Otp from './components/auth/Otp'
 import NewPassword from './components/auth/NewPassword'
 import ProtectedRoute from './components/middleware/ProtectedRoute'
-import OtpGuard from "./components/middleware/otpGuard";
-import PublicRoute from './components/middleware/publicRoute'
+import OtpGuard from "./components/middleware/OtpGuard";
+import PublicRoute from './components/middleware/PublicRoute'
 
 function App() {
 
