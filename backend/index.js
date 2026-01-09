@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://job-portal-frontend-c2hq.onrender.com/",
+    "https://job-portal-frontend-c2hq.onrender.com",
 ];
 
 app.use(cors({
