@@ -36,7 +36,7 @@ const JobCards = ({ job }) => {
             </div>
             <div>
                 <h1 className='font-bold text-lg'>{job?.title}</h1>
-                <p className='text-gray-600 text-sm'>{job?.description}</p>
+                <p className='text-gray-600 text-sm'>{job?.description.substring(0, 80)}....</p>
             </div>
             <div className='flex items-center gap-2 mt-3'>
                 <Badge className={"text-blue-700 font-bold"} variant="ghost">{job?.position} Position</Badge>

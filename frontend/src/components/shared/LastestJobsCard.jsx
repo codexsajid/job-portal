@@ -12,7 +12,7 @@ const LastestJobsCard = ({ job }) => {
             </div>
             <div>
                 <h1 className='font-bold text-lg'>{job?.title}</h1>
-                <p className='text-sm text-gray-600'>{job?.description}</p>
+                <p className='text-sm text-gray-600'>{job?.description.substring(0, 80)}....</p>
             </div>
             <div className='flex items-center gap-2 mt-3'>
                 <Badge className={"text-blue-700 font-bold"} variant="ghost">{job?.position} Position</Badge>
