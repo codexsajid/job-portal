@@ -32,10 +32,10 @@ const CreateCompany = () => {
     return (
         <div>
             <Navbar />
-            <div className='max-w-3xl m-auto my-10'>
+            <div className='max-w-3xl mx-auto my-10 px-4 sm:px-6'>
                 <div className='my-8'>
-                    <h1 className='font-bold text-2xl'>Your Company Name</h1>
-                    <p className='text-gray-500'>What would you like to give your company name? you can change the company name later also.</p>
+                    <h1 className='font-bold text-2xl sm:text-3xl'>Your Company Name</h1>
+                    <p className='text-gray-500 text-sm sm:text-base mt-2'>What would you like to give your company name? you can change the company name later also.</p>
                 </div>
                 <div>
                     <Label className={"font-bold"}>Company Name</Label>
@@ -46,8 +46,8 @@ const CreateCompany = () => {
                         className={"my-2 border border-black"}
                     />
                 </div>
-                <div className='flex gap-4 my-6'>
-                    <Button onClick={() => navigate("/admin/companies")} variant='outline' className={"cursor-pointer"}>Cancel</Button>
+                <div className='flex flex-col sm:flex-row gap-4 my-6'>
+                    <Button onClick={() => navigate("/admin/companies")} variant='outline' className={"cursor-pointer w-full sm:w-auto"}>Cancel</Button>
                     <Button className={"cursor-pointer"} onClick={() => registerCompany()}>Continue</Button>
                 </div>
             </div>

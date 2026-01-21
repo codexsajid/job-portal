@@ -19,53 +19,56 @@ const CompaniesTable = () => {
     const { allCompany } = useSelector(store => store.company)
 
     return (
-        <div>
-            <Table>
+        <div className='w-full overflow-x-auto'>
+            <Table className='w-full'>
                 <TableCaption>A list of companies you recently created</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Logo</TableHead>
-                        <TableHead>Company Name</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead className={"text-right"}>Action</TableHead>
+                        <TableHead className='w-16'>Logo</TableHead>
+                        <TableHead className='hidden sm:table-cell'>Company Name</TableHead>
+                        <TableHead className='hidden md:table-cell'>Date</TableHead>
+                        <TableHead className="text-right">Action</TableHead>
                     </TableRow>
                 </TableHeader>
 
                 <TableBody>
                     {allCompany?.length === 0 ? (
                         <TableRow>
-                            <TableCell colSpan={4} className="text-center">
-                                Company Not Found Beacuse You Have Not Register New Company.
+                            <TableCell colSpan={4} className="text-center py-8">
+                                <p className='text-gray-500'>Company Not Found</p>
+                                <p className='text-sm text-gray-400'>You have not registered any company yet.</p>
                             </TableCell>
                         </TableRow>
                     ) : (
                         allCompany?.map(company => (
-                            <TableRow key={company._id}>
+                            <TableRow key={company._id} className='hover:bg-gray-50'>
                                 <TableCell>
-                                    <Avatar>
+                                    <Avatar className='h-10 w-10'>
                                         <AvatarImage
                                             src={company.logo || 'https://via.placeholder.com/50'}
                                             alt={company.name}
                                         />
                                     </Avatar>
                                 </TableCell>
-                                <TableCell>{company.name}</TableCell>
-                                <TableCell>
+                                <TableCell className='hidden sm:table-cell font-medium'>{company.name}</TableCell>
+                                <TableCell className='hidden md:table-cell text-sm text-gray-600'>
                                     {company.createdAt.split('T')[0]}
                                 </TableCell>
                                 <TableCell className="text-right cursor-pointer">
                                     <Popover>
-                                        <PopoverTrigger>
-                                            <MoreHorizontal />
+                                        <PopoverTrigger className='hover:bg-gray-100 p-2 rounded-md transition'>
+                                            <MoreHorizontal size={18} />
                                         </PopoverTrigger>
                                         <PopoverContent
-                                            className="w-32 flex gap-2 items-center"
+                                            className="w-32 p-2"
                                             onClick={() =>
                                                 navigate(`/admin/companies/${company._id}`)
                                             }
                                         >
-                                            <Edit2 size={18} />
-                                            <span>Edit</span>
+                                            <div className='flex gap-2 items-center hover:bg-gray-100 p-2 rounded cursor-pointer'>
+                                                <Edit2 size={18} />
+                                                <span className='text-sm'>Edit</span>
+                                            </div>
                                         </PopoverContent>
                                     </Popover>
                                 </TableCell>

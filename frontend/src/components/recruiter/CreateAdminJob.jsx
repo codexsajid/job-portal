@@ -66,9 +66,9 @@ const CreateAdminJob = () => {
     return (
         <div>
             <Navbar />
-            <div className="max-w-xl mx-auto my-4 p-6 shadow-xl bg-white">
+            <div className="max-w-4xl mx-auto my-4 p-4 sm:p-6 shadow-xl bg-white rounded-lg">
                 <form onSubmit={submitHandler}>
-                    <div className="flex items-center gap-6 mb-6">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-8">
                         <Button
                             className="flex items-center text-gray-600 cursor-pointer"
                             variant="outline"
@@ -78,11 +78,10 @@ const CreateAdminJob = () => {
                             <ArrowLeft className="mt-0.5" />
                             <span>Back</span>
                         </Button>
-                        <h1 className="text-2xl font-bold">Post Job</h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold">Post Job</h1>
                     </div>
 
-
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div className="grid gap-2">
                             <Label htmlFor="title">Title</Label>
                             <Input
@@ -189,9 +188,9 @@ const CreateAdminJob = () => {
                     </div>
 
 
-                    <div className="mt-8">
+                    <div className="mt-8 space-y-4">
                         {
-                            loading ? <Button type="submit" className={`w-full my-4`}><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className={`w-full my-4`}>Post New Job</Button>
+                            loading ? <Button type="submit" className={`w-full`}><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className={`w-full`}>Post New Job</Button>
                         }
                         {
                             allCompany.length === 0 && <p className='text-xs text-red-600 font-bold text-center'>*Please register a company first, before posting a job.</p>
@@ -202,7 +201,5 @@ const CreateAdminJob = () => {
         </div>
     )
 }
-
-
 
 export default CreateAdminJob

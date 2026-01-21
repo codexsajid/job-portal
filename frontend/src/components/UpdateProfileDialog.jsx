@@ -69,66 +69,53 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     };
 
     return (
-        <Dialog open={open}>
-            <DialogContent className="/sm:max-w-[425px]" onInteractOutside={() => setOpen(false)}>
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent className="w-full max-w-[90vw] sm:max-w-[425px] rounded-lg" onInteractOutside={() => setOpen(false)}>
                 <DialogHeader>
-                    <DialogTitle>Update Profile</DialogTitle>
+                    <DialogTitle className="text-base sm:text-lg">Update Profile</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={submitHandler}>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="fullname" className="text-right">Name</Label>
-                            <Input id="fullname" name="fullname" className="col-span-3" value={input.fullname} onChange={changeEventHandler} />
+                    <div className="grid gap-3 sm:gap-4 py-4 max-h-[60vh] overflow-y-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
+                            <Label htmlFor="fullname" className="text-xs sm:text-sm">Name</Label>
+                            <Input id="fullname" name="fullname" className="col-span-1 sm:col-span-3 text-xs sm:text-sm py-1 sm:py-2" value={input.fullname} onChange={changeEventHandler} />
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="bio" className="text-right">Bio</Label>
-                            <Input id="bio" name="bio" className="col-span-3" value={input.bio} onChange={changeEventHandler} />
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
+                            <Label htmlFor="bio" className="text-xs sm:text-sm">Bio</Label>
+                            <Input id="bio" name="bio" className="col-span-1 sm:col-span-3 text-xs sm:text-sm py-1 sm:py-2" value={input.bio} onChange={changeEventHandler} />
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="email" className="text-right">Email</Label>
-                            <Input id="email" name="email" className="col-span-3" value={input.email} onChange={changeEventHandler} />
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
+                            <Label htmlFor="email" className="text-xs sm:text-sm">Email</Label>
+                            <Input id="email" name="email" className="col-span-1 sm:col-span-3 text-xs sm:text-sm py-1 sm:py-2" value={input.email} onChange={changeEventHandler} />
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="phoneNumber" className="text-right">Contact</Label>
-                            <Input id="phoneNumber" name="phoneNumber" className="col-span-3" value={input.phoneNumber} onChange={changeEventHandler} />
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
+                            <Label htmlFor="phoneNumber" className="text-xs sm:text-sm">Contact</Label>
+                            <Input id="phoneNumber" name="phoneNumber" className="col-span-1 sm:col-span-3 text-xs sm:text-sm py-1 sm:py-2" value={input.phoneNumber} onChange={changeEventHandler} />
                         </div>
-                        <div className='grid grid-cols-4 items-center gap-4'>
-                            <Label htmlFor="skills" className="text-right">Skills</Label>
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
+                            <Label htmlFor="skills" className="text-xs sm:text-sm">Skills</Label>
                             <Input
                                 id="skills"
                                 name="skills"
+                                className="col-span-1 sm:col-span-3 text-xs sm:text-sm py-1 sm:py-2"
                                 value={input.skills}
                                 onChange={changeEventHandler}
-                                className="col-span-3"
                             />
                         </div>
 
-
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="resume" className="text-right">Resume</Label>
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
+                            <Label htmlFor="resume" className="text-xs sm:text-sm">Resume</Label>
                             <Input
                                 id="resume"
                                 name="resume"
                                 type="file"
                                 accept="application/pdf"
-                                className="col-span-3"
+                                className="col-span-1 sm:col-span-3 text-xs py-1 sm:py-2"
                                 onChange={fileChangeHandler}
                             />
                         </div>
-                        {/* <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="profilePhoto" className="text-right">ProfilePhoto</Label>
-                            <Input
-                                id="profilePhoto"
-                                name="profilePhoto"
-                                type="file"
-                                accept="image/*"
-                                className="col-span-3"
-                                onChange={(e) => setInput({ ...input, profilePhoto: e.target.files?.[0] })}
-                            />
-                        </div> */}
-
                     </div>
-                    <Button type="submit" className="w-full my-4" disabled={loading}>
+                    <Button type="submit" className="w-full my-4 text-xs sm:text-sm py-2 sm:py-3" disabled={loading}>
                         {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait</> : "Update"}
                     </Button>
                 </form>

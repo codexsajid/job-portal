@@ -18,31 +18,31 @@ const AdminJobsTable = () => {
     const navigate = useNavigate()
 
     return (
-        <div>
-            <Table>
-                <TableCaption>A list of Jobs you recently created</TableCaption>
+        <div className='overflow-x-auto'>
+            <Table className='text-xs sm:text-sm'>
+                <TableCaption className='text-xs sm:text-sm'>A list of Jobs you recently created</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Company Name</TableHead>
-                        <TableHead>Role</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead className={"text-right"}>Action</TableHead>
+                        <TableHead className='text-xs sm:text-sm'>Company Name</TableHead>
+                        <TableHead className='text-xs sm:text-sm hidden sm:table-cell'>Role</TableHead>
+                        <TableHead className='text-xs sm:text-sm hidden md:table-cell'>Date</TableHead>
+                        <TableHead className={"text-right text-xs sm:text-sm"}>Action</TableHead>
                     </TableRow>
                 </TableHeader>
 
                 <TableBody>
                     {allAdminJobs?.length === 0 ? (
                         <TableRow>
-                            <TableCell colSpan={4} className="text-center">
-                                Job Not Found Beacuse You Have Not Created New Job.
+                            <TableCell colSpan={4} className="text-center text-xs sm:text-sm">
+                                Job Not Found Because You Have Not Created New Job.
                             </TableCell>
                         </TableRow>
                     ) : (
                         allAdminJobs?.map(job => (
                             <TableRow key={job._id}>
-                                <TableCell>{job?.company?.name}</TableCell>
-                                <TableCell>{job?.title}</TableCell>
-                                <TableCell>
+                                <TableCell className='text-xs sm:text-sm'>{job?.company?.name}</TableCell>
+                                <TableCell className='text-xs sm:text-sm hidden sm:table-cell'>{job?.title}</TableCell>
+                                <TableCell className='text-xs sm:text-sm hidden md:table-cell'>
                                     {job.createdAt.split('T')[0]}
                                 </TableCell>
                                 <TableCell className="text-right cursor-pointer">

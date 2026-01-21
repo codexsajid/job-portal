@@ -19,7 +19,7 @@ const Home = () => {
 
     }, [])
     return (
-        <div>
+        <div className="w-full overflow-x-hidden">
             <Navbar />
             <HeroSection />
             <CategoryCarousel />

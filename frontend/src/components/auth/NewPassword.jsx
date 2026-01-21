@@ -65,11 +65,11 @@ const NewPassword = () => {
 
   if (!email) {
     return (
-      <div className='max-w-150 m-auto mt-30'>
-        <div className='border border-gray-200 rounded-sm shadow-sm p-10'>
-          <p className='text-center'>Session expired. Please start again.</p>
+      <div className='max-w-md sm:max-w-lg m-auto mt-12 sm:mt-24 px-4'>
+        <div className='border border-gray-200 rounded-sm shadow-sm p-6 sm:p-10'>
+          <p className='text-center text-xs sm:text-sm'>Session expired. Please start again.</p>
           <Button
-            className="w-full mt-4"
+            className="w-full mt-4 text-xs sm:text-sm"
             onClick={() => navigate('/forgot-password')}
           >
             Back to Forgot Password
@@ -80,20 +80,21 @@ const NewPassword = () => {
   }
 
   return (
-    <div className='max-w-150 m-auto mt-30'>
-      <div className='border border-gray-200 rounded-sm shadow-sm p-10'>
-        <form onSubmit={submitHandler} className='p-4'>
+    <div className='max-w-md sm:max-w-lg m-auto mt-12 sm:mt-24 px-4 pb-10'>
+      <div className='border border-gray-200 rounded-sm shadow-sm p-6 sm:p-10'>
+        <form onSubmit={submitHandler} className='p-0 sm:p-4'>
 
           <div className='flex items-center gap-2 my-5'>
             <ArrowLeft
+              size={20}
               className='cursor-pointer'
               onClick={() => navigate('/otp')}
             />
-            <h1 className='font-bold text-xl'>Reset Password</h1>
+            <h1 className='font-bold text-lg sm:text-xl md:text-2xl'>Reset Password</h1>
           </div>
 
-          <div className='my-2'>
-            <Label className={"pb-1"}>New Password</Label>
+          <div className='my-4'>
+            <Label className={"pb-1 text-xs sm:text-sm"}>New Password</Label>
             <div className='relative'>
               <Input
                 type={showPassword ? "text" : "password"}
@@ -102,6 +103,7 @@ const NewPassword = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter new password"
                 required
+                className='text-xs sm:text-sm'
               />
               <button
                 type='button'
@@ -113,8 +115,8 @@ const NewPassword = () => {
             </div>
           </div>
 
-          <div className='my-2'>
-            <Label className={"pb-1"}>Confirm Password</Label>
+          <div className='my-4'>
+            <Label className={"pb-1 text-xs sm:text-sm"}>Confirm Password</Label>
             <div className='relative'>
               <Input
                 type={showConfirmPassword ? "text" : "password"}
@@ -123,6 +125,7 @@ const NewPassword = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm password"
                 required
+                className='text-xs sm:text-sm'
               />
               <button
                 type='button'
@@ -134,7 +137,7 @@ const NewPassword = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full my-4" disabled={loading}>
+          <Button type="submit" className="w-full my-4 bg-purple-700 hover:bg-purple-800 text-xs sm:text-sm" disabled={loading}>
             {loading ? (
               <>
                 <Loader2 className='mr-2 h-4 w-4 animate-spin' />

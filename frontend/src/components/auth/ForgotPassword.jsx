@@ -48,26 +48,28 @@ const ForgotPassword = () => {
     }
 
     return (
-        <div className='max-w-150 m-auto mt-30'>
-            <div className='border border-gray-200 rounded-sm shadow-sm p-10'>
-                <form onSubmit={submitHandler} className='p-4'>
+        <div className='max-w-md sm:max-w-lg m-auto mt-12 sm:mt-24 px-4'>
+            <div className='border border-gray-200 rounded-sm shadow-sm p-6 sm:p-10'>
+                <form onSubmit={submitHandler} className='p-0 sm:p-4'>
 
                     <div className='flex items-center gap-2 my-5'>
                         <ArrowLeft
+                            size={20}
                             className='cursor-pointer'
                             onClick={() => navigate('/login')}
                         />
-                        <h1 className='font-bold text-xl'>Forgot Password</h1>
+                        <h1 className='font-bold text-lg sm:text-xl md:text-2xl'>Forgot Password</h1>
                     </div>
 
-                    <div className='my-2'>
-                        <Label className={"pb-1"}>Email</Label>
+                    <div className='my-4'>
+                        <Label className={"pb-1 text-xs sm:text-sm"}>Email</Label>
                         <Input
                             type="email"
                             value={email}
                             name="email"
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="sajid1234@gmail.com"
+                            className='text-xs sm:text-sm'
                             required
                         />
                     </div>

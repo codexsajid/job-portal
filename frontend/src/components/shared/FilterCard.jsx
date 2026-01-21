@@ -48,25 +48,27 @@ const FilterCard = () => {
         dispatch(setSearchQuery(selectedValue))
     }, [selectedValue])
     return (
-        <div className='w-full bg-white'>
-            <h1>Filter Jobs</h1>
-            <hr className='mt-3 mr-5 font-bold' />
+        <div className='w-full p-3 sm:p-4'>
+            <h1 className='font-bold text-base sm:text-lg mb-4'>Filter Jobs</h1>
+            <hr className='mb-4' />
             <RadioGroup value={selectedValue} onValueChange={changeHandler}>
                 {
                     filterData.map((item, index) => (
-                        <div key={index}>
-                            <h1 className='font-bold my-2' >{item.filterType}</h1>
-                            {
-                                item.array.map((data, index1) => {
-                                    const itemId = `id${index}-${index1}`
-                                    return (
-                                        <div className='flex gap-2 items-center my-2 space-x-2' key={index1}>
-                                            <RadioGroupItem value={data} id={itemId} className={"border border-black"} />
-                                            <Label htmlFor={itemId} className={"text-sm"}>{data}</Label>
-                                        </div>
-                                    )
-                                })
-                            }
+                        <div key={index} className='mb-5'>
+                            <h2 className='font-semibold text-sm sm:text-base mb-3'>{item.filterType}</h2>
+                            <div className='space-y-2'>
+                                {
+                                    item.array.map((data, index1) => {
+                                        const itemId = `id${index}-${index1}`
+                                        return (
+                                            <div className='flex items-center gap-2' key={index1}>
+                                                <RadioGroupItem value={data} id={itemId} className={"border border-gray-300"} />
+                                                <Label htmlFor={itemId} className={"text-xs sm:text-sm cursor-pointer"}>{data}</Label>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     ))
                 }

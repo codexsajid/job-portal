@@ -30,37 +30,37 @@ const ApplicantsTable = () => {
     const { applicants } = useSelector((store) => store.application)
     console.log(applicants[1].status)
     return (
-        <div>
-            <Table>
-                <TableCaption>A list of your recent applied user.</TableCaption>
+        <div className='overflow-x-auto'>
+            <Table className='text-xs sm:text-sm'>
+                <TableCaption className='text-xs sm:text-sm'>A list of your recent applied user.</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Full Name</TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead>Contact</TableHead>
-                        <TableHead>Resume</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className={"text-right"}>Action</TableHead>
+                        <TableHead className='text-xs sm:text-sm'>Full Name</TableHead>
+                        <TableHead className='text-xs sm:text-sm hidden sm:table-cell'>Email</TableHead>
+                        <TableHead className='text-xs sm:text-sm hidden md:table-cell'>Contact</TableHead>
+                        <TableHead className='text-xs sm:text-sm hidden lg:table-cell'>Resume</TableHead>
+                        <TableHead className='text-xs sm:text-sm hidden md:table-cell'>Date</TableHead>
+                        <TableHead className='text-xs sm:text-sm'>Status</TableHead>
+                        <TableHead className={"text-right text-xs sm:text-sm"}>Action</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {applicants.length > 0 ? (
                         applicants.map(applicant => (
                             <TableRow key={applicant._id}>
-                                <TableCell>{applicant?.applicant?.fullname}</TableCell>
-                                <TableCell>{applicant?.applicant?.email}</TableCell>
-                                <TableCell>{applicant?.applicant?.phoneNumber}</TableCell>
-                                <TableCell>
+                                <TableCell className='text-xs sm:text-sm'>{applicant?.applicant?.fullname}</TableCell>
+                                <TableCell className='text-xs sm:text-sm hidden sm:table-cell'>{applicant?.applicant?.email}</TableCell>
+                                <TableCell className='text-xs sm:text-sm hidden md:table-cell'>{applicant?.applicant?.phoneNumber}</TableCell>
+                                <TableCell className='text-xs sm:text-sm hidden lg:table-cell'>
                                     {applicant?.applicant?.profile?.resume ? (
-                                        <a href={applicant.applicant.profile.resume} target="_blank" rel="noopener noreferrer" className='text-blue-500'>
+                                        <a href={applicant.applicant.profile.resume} target="_blank" rel="noopener noreferrer" className='text-blue-500 truncate text-xs sm:text-sm'>
                                             {applicant.applicant.profile.resumeOriginalName}
                                         </a>
                                     ) : 'NA'}
                                 </TableCell>
-                                <TableCell>{applicant?.createdAt.split("T")[0]}</TableCell>
-                                <TableCell>
-                                    <Badge className={`${applicant.status == 'rejected' ? 'bg-red-500' : applicant.status == 'pending' ? 'bg-gray-500' : 'bg-green-400'}`}>{applicant?.status.toLowerCase()}</Badge>
+                                <TableCell className='text-xs sm:text-sm hidden md:table-cell'>{applicant?.createdAt.split("T")[0]}</TableCell>
+                                <TableCell className='text-xs sm:text-sm'>
+                                    <Badge className={`text-xs sm:text-sm ${applicant.status == 'rejected' ? 'bg-red-500' : applicant.status == 'pending' ? 'bg-gray-500' : 'bg-green-400'}`}>{applicant?.status.toLowerCase()}</Badge>
                                 </TableCell>
                                 <TableCell className="text-right">
                                     <Popover>

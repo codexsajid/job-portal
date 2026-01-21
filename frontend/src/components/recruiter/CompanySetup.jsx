@@ -78,9 +78,9 @@ const CompanySetup = () => {
     return (
         <div>
             <Navbar />
-            <div className="max-w-xl mx-auto my-4 p-6 border rounded-lg shadow-sm bg-white">
+            <div className="max-w-2xl mx-auto my-4 p-4 sm:p-6 border rounded-lg shadow-sm bg-white">
                 <form onSubmit={submitHandler}>
-                    <div className="flex items-center gap-6 mb-6">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-8">
                         <Button
                             className="flex items-center text-gray-600 cursor-pointer"
                             variant="outline"
@@ -90,7 +90,7 @@ const CompanySetup = () => {
                             <ArrowLeft className="mt-0.5" />
                             <span>Back</span>
                         </Button>
-                        <h1 className="text-2xl font-bold">Company Setup</h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold">Company Setup</h1>
                     </div>
 
 
@@ -157,7 +157,7 @@ const CompanySetup = () => {
 
                     <div className="mt-8">
                         {
-                            loading ? <Button type="submit" className={`w-full my-4`}><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className={`w-full my-4`}>Update</Button>
+                            loading ? <Button type="submit" className={`w-full`}><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className={`w-full`}>Update</Button>
                         }
                     </div>
                 </form>
@@ -165,7 +165,5 @@ const CompanySetup = () => {
         </div>
     )
 }
-
-
 
 export default CompanySetup

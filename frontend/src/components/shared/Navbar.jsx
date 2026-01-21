@@ -34,26 +34,26 @@ const Navbar = () => {
     }
 
     return (
-        <div className="bg-white">
-            <div className="flex justify-between items-center mx-auto max-w-6xl h-16">
-                <h1 className="text-2xl font-bold">
+        <div className="bg-white w-full">
+            <div className="flex justify-between items-center w-full mx-auto max-w-6xl h-auto sm:h-16 px-3 sm:px-6 lg:px-8 py-2 sm:py-0">
+                <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold whitespace-nowrap">
                     Job<span className="text-red-500">Portal</span>
                 </h1>
 
-                <div className="flex items-center gap-12">
-                    <ul className="flex font-medium items-center gap-5">
+                <div className="flex items-center gap-1 sm:gap-3 md:gap-6 lg:gap-12 flex-wrap">
+                    <ul className="flex font-medium items-center gap-1 sm:gap-2 md:gap-3 lg:gap-5 text-xs sm:text-sm md:text-base ">
                         {
                             user && user.role == "recruiter" ? (
                                 <>
-                                    <li><Link to="/admin/companies">Companies</Link></li>
-                                    <li><Link to="/admin/jobs">Jobs</Link></li>
+                                    <li className="px-1 sm:px-0"><Link to="/admin/companies">Companies</Link></li>
+                                    <li className="px-1 sm:px-0"><Link to="/admin/jobs">Jobs</Link></li>
                                 </>
                             ) :
                                 (
                                     <>
-                                        <li><Link to="/">Home</Link></li>
-                                        <li><Link to="/jobs">Jobs</Link></li>
-                                        <li><Link to="/browse">Browse</Link></li>
+                                        <li className="px-1 sm:px-0"><Link to="/">Home</Link></li>
+                                        <li className="px-1 sm:px-0"><Link to="/jobs">Jobs</Link></li>
+                                        <li className="px-1 sm:px-0"><Link to="/browse">Browse</Link></li>
                                     </>
                                 )
                         }
@@ -61,54 +61,54 @@ const Navbar = () => {
                     </ul>
 
                     {!user ? (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
                             <Link to="/login">
-                                <Button variant="outline">Login</Button>
+                                <Button variant="outline" className="text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2">Login</Button>
                             </Link>
                             <Link to="/signup">
-                                <Button className="bg-black hover:bg-gray-800">Signup</Button>
+                                <Button className="bg-black hover:bg-gray-800 text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2">Signup</Button>
                             </Link>
                         </div>
                     ) : (
                         <Popover>
                             <PopoverTrigger asChild>
-                                <Avatar className="cursor-pointer">
+                                <Avatar className="cursor-pointer w-8 h-8 sm:w-10 sm:h-10">
                                     <AvatarImage
                                         src={user?.profile.profilePhoto || "https://github.com/shadcn.png"}
                                         alt="profilePhoto"
                                     />
                                 </Avatar>
                             </PopoverTrigger>
-                            <PopoverContent className="w-72">
-                                <div className="flex gap-4">
-                                    <Avatar>
+                            <PopoverContent className="w-60 sm:w-72 text-xs sm:text-sm">
+                                <div className="flex gap-3 sm:gap-4">
+                                    <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
                                         <AvatarImage
                                             src={user?.profile.profilePhoto || "https://github.com/shadcn.png"}
                                             alt="profilePhoto"
                                         />
                                     </Avatar>
                                     <div>
-                                        <h4 className="font-medium">{user?.name}</h4>
-                                        <p className="text-sm text-muted-foreground">{user?.email}</p>
+                                        <h4 className="font-medium text-xs sm:text-sm">{user?.name}</h4>
+                                        <p className="text-xs sm:text-sm text-muted-foreground break-all">{user?.email}</p>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col my-2 text-gray-600">
+                                <div className="flex flex-col my-2 text-gray-600 text-xs sm:text-sm">
                                     {
                                         user && user.role == "user" ? (
-                                            <div className="flex w-fit items-center gap-3 cursor-pointer">
-                                                <User2 />
+                                            <div className="flex w-fit items-center gap-2 sm:gap-3 cursor-pointer">
+                                                <User2 size={16} />
                                                 <Link to="/profile">
-                                                    <Button variant="link">View Profile</Button>
+                                                    <Button variant="link" className="text-xs sm:text-sm p-0">View Profile</Button>
                                                 </Link>
                                             </div>
                                         ) : <></>
                                     }
                                     <div
-                                        className="flex w-fit items-center gap-3 cursor-pointer"
+                                        className="flex w-fit items-center gap-2 sm:gap-3 cursor-pointer"
                                     >
-                                        <LogOut />
-                                        <Button variant="link" onClick={logoutHandler}>Logout</Button>
+                                        <LogOut size={16} />
+                                        <Button variant="link" onClick={logoutHandler} className="text-xs sm:text-sm p-0">Logout</Button>
                                     </div>
                                 </div>
                             </PopoverContent>

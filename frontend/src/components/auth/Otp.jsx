@@ -74,22 +74,23 @@ const Otp = () => {
     }
 
     return (
-        <div className="min-h-screen flex justify-center items-center bg-gray-50">
-            <div className="w-full max-w-sm border border-gray-200 rounded-xl p-8 shadow-md bg-white">
+        <div className="min-h-screen flex justify-center items-center bg-gray-50 px-4 sm:px-6">
+            <div className="w-full max-w-sm border border-gray-200 rounded-xl p-6 sm:p-8 shadow-md bg-white">
                 <div className='flex items-center gap-2 mb-6'>
                     <ArrowLeft
+                        size={20}
                         className='cursor-pointer'
                         onClick={handleGoBack}
                     />
-                    <h1 className="font-bold text-2xl">Verify OTP</h1>
+                    <h1 className="font-bold text-lg sm:text-xl md:text-2xl">Verify OTP</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="text-center">
-                        <Label className="block text-gray-700 mb-2">Enter One-Time Password</Label>
-                        <p className='text-sm text-gray-500 mb-3'>Sent to {email}</p>
+                        <Label className="block text-gray-700 mb-2 text-xs sm:text-sm">Enter One-Time Password</Label>
+                        <p className='text-xs sm:text-sm text-gray-500 mb-3'>Sent to {email}</p>
                         <Input
-                            className="w-full text-center tracking-widest text-xl py-3 border-gray-500"
+                            className="w-full text-center tracking-widest text-lg sm:text-xl py-3 border-gray-500 text-xs sm:text-base"
                             type="text"
                             name="otp"
                             maxLength={4}
@@ -101,11 +102,11 @@ const Otp = () => {
                     </div>
 
                     {loading ? (
-                        <Button disabled className="w-full py-3">
+                        <Button disabled className="w-full py-3 text-xs sm:text-sm">
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
                         </Button>
                     ) : (
-                        <Button type="submit" className="w-full py-3 font-medium">
+                        <Button type="submit" className="w-full py-3 font-medium text-xs sm:text-sm">
                             Verify OTP
                         </Button>
                     )}

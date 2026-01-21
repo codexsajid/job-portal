@@ -76,60 +76,64 @@ const Signup = () => {
     return (
         <div>
             <Navbar />
-            <div className='flex items-center justify-center max-w-7xl mx-auto'>
+            <div className='flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6'>
                 <form
                     method='post'
                     onSubmit={submitHandler}
-                    className='w-1/2 border border-gray-200 rounded-md p-4 my-10 shadow-sm'
+                    className='w-full sm:w-1/2 border border-gray-200 rounded-md p-4 sm:p-6 my-10 shadow-sm'
                 >
-                    <h1 className='font-bold text-xl mb-5'>Sign Up</h1>
+                    <h1 className='font-bold text-lg sm:text-xl md:text-2xl mb-5'>Sign Up</h1>
 
                     <div className='my-2'>
-                        <Label className='my-2'>Full Name</Label>
+                        <Label className='my-2 text-xs sm:text-sm'>Full Name</Label>
                         <Input
                             type="text"
                             value={input.fullname}
                             name="fullname"
                             onChange={changeEventHandler}
                             placeholder="sajid"
+                            className='text-xs sm:text-sm'
                         />
                     </div>
 
                     <div className='my-2'>
-                        <Label className='my-2'>Email</Label>
+                        <Label className='my-2 text-xs sm:text-sm'>Email</Label>
                         <Input
                             type="email"
                             value={input.email}
                             name="email"
                             onChange={changeEventHandler}
                             placeholder="sajid@gmail.com"
+                            className='text-xs sm:text-sm'
                         />
                     </div>
 
                     <div className='my-2'>
-                        <Label className='my-2'>Phone Number</Label>
+                        <Label className='my-2 text-xs sm:text-sm'>Phone Number</Label>
                         <Input
                             type="text"
                             value={input.phoneNumber}
                             name="phoneNumber"
                             onChange={changeEventHandler}
                             placeholder="1234567890"
+                            className='text-xs sm:text-sm'
                         />
                     </div>
 
                     <div className='my-2'>
-                        <Label className='my-2'>Password</Label>
+                        <Label className='my-2 text-xs sm:text-sm'>Password</Label>
                         <Input
                             type="password"
                             value={input.password}
                             name="password"
                             onChange={changeEventHandler}
                             placeholder="********"
+                            className='text-xs sm:text-sm'
                         />
                     </div>
 
-                    <div className='flex items-center justify-between'>
-                        <RadioGroup className={`flex items-center gap-4 my-4`}>
+                    <div className='flex flex-col sm:flex-row gap-4'>
+                        <RadioGroup className={`flex items-center gap-2 sm:gap-4 my-4 text-xs sm:text-sm`}>
                             <div className="flex items-center space-x-2">
                                 <Input
                                     type="radio"
@@ -139,7 +143,7 @@ const Signup = () => {
                                     onChange={changeEventHandler}
                                     className={`cursor-pointer`}
                                 />
-                                <Label>User</Label>
+                                <Label className='text-xs sm:text-sm'>User</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Input
@@ -150,15 +154,15 @@ const Signup = () => {
                                     onChange={changeEventHandler}
                                     className={`cursor-pointer`}
                                 />
-                                <Label>Recruiter</Label>
+                                <Label className='text-xs sm:text-sm'>Recruiter</Label>
                             </div>
                         </RadioGroup>
-                        <div className='flex items-center gap-3'>
-                            <Label>Profile</Label>
+                        <div className='flex items-center gap-2 sm:gap-3'>
+                            <Label className='text-xs sm:text-sm'>Profile</Label>
                             <Input
                                 accept="image/*"
                                 type="file"
-                                className={`cursor-pointer`}
+                                className={`cursor-pointer text-xs sm:text-sm`}
                                 onChange={fileHandler}
                             />
                         </div>
@@ -167,8 +171,8 @@ const Signup = () => {
                     {
                         loading ? <Button type="submit" className={`w-full my-4`}><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className={`w-full my-4`}>Sign Up</Button>
                     }
-                    <span className='text-sm'>
-                        Already have an account? <Link to="/login" className="text-blue-600">Login</Link>
+                    <span className='text-xs sm:text-sm'>
+                        Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
                     </span>
                 </form>
             </div>
