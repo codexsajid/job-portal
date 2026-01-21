@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import { Loader2 } from 'lucide-react'
+import { Loader2, ArrowLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'sonner'
@@ -13,7 +13,11 @@ const Otp = () => {
     const [otp, setOtp] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const email = localStorage.getItem("emailForOtp")   // 👈 saved in signup
+    // Check if this is for signup or password reset
+    const emailForSignup = localStorage.getItem("emailForOtp")
+    const emailForReset = localStorage.getItem("emailForReset")
+    const email = emailForSignup || emailForReset
+    const isPasswordReset = !!emailForReset
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -23,19 +27,35 @@ const Otp = () => {
             return
         }
 
+        if (!email) {
+            toast.error("Email not found. Please start again.")
+            navigate(isPasswordReset ? '/forgot-password' : '/signup')
+            return
+        }
+
         try {
             setLoading(true)
 
+            // Use appropriate endpoint based on flow
+            const endpoint = isPasswordReset ? '/verify-reset-otp' : '/verify-otp'
+
             const res = await axios.post(
-                `${USER_END_POINT_URL}/verify-otp`,
+                `${USER_END_POINT_URL}${endpoint}`,
                 { email, otp },
                 { withCredentials: true }
             )
 
             if (res.data.success) {
-                toast.success(res.data.message)
-                localStorage.removeItem("emailForOtp")
-                navigate("/login")
+                toast.success(res.data.message || "OTP verified successfully")
+
+                if (isPasswordReset) {
+                    // Password reset flow
+                    navigate("/newPassword")
+                } else {
+                    // Signup flow
+                    localStorage.removeItem("emailForOtp")
+                    navigate("/login")
+                }
             }
         } catch (error) {
             console.log(error)
@@ -45,14 +65,29 @@ const Otp = () => {
         }
     }
 
+    const handleGoBack = () => {
+        if (isPasswordReset) {
+            navigate('/forgot-password')
+        } else {
+            navigate('/signup')
+        }
+    }
+
     return (
         <div className="min-h-screen flex justify-center items-center bg-gray-50">
             <div className="w-full max-w-sm border border-gray-200 rounded-xl p-8 shadow-md bg-white">
-                <h1 className="font-bold text-2xl text-center mb-6">Verify OTP</h1>
+                <div className='flex items-center gap-2 mb-6'>
+                    <ArrowLeft
+                        className='cursor-pointer'
+                        onClick={handleGoBack}
+                    />
+                    <h1 className="font-bold text-2xl">Verify OTP</h1>
+                </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="text-center">
                         <Label className="block text-gray-700 mb-2">Enter One-Time Password</Label>
+                        <p className='text-sm text-gray-500 mb-3'>Sent to {email}</p>
                         <Input
                             className="w-full text-center tracking-widest text-xl py-3 border-gray-500"
                             type="text"

@@ -1,5 +1,6 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcrypt"
+import { sendPasswordResetEmail, sendOtpEmail, sendForgotPasswordOtpEmail } from "../middleware/emailCode.js";
 
 // Generate 4-digit OTP
 export const generateOtp = () => Math.floor(1000 + Math.random() * 9000).toString();
@@ -26,8 +27,9 @@ export const sendOtp = async (req, res) => {
         user.otpExpiry = Date.now() + 5 * 60 * 1000
         await user.save()
 
-        // TODO: Send email/SMS
-        console.log(`OTP for ${email}: ${otp}`);
+        // Send Forgot Password OTP email
+        await sendForgotPasswordOtpEmail(user.email, user.fullname, otp);
+
         return res.status(200).json({
             message: "OTP sent successfully",
             success: true
@@ -102,6 +104,9 @@ export const resetPassword = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         user.password = hashedPassword;
         await user.save();
+
+        // Send password reset confirmation email
+        await sendPasswordResetEmail(email, user.fullname);
 
         return res.status(200).json({
             message: "Password reset successfully",
