@@ -130,5 +130,63 @@ export const getJobById = async (req, res) => {
     }
 }
 
+// admin can edit job
+export const updateJob = async (req, res) => {
+    try {
+        const jobId = req.params.id;
+        const recruiterId = req.user.userId;
+        const { title, description, requirements, location, salary, experience, jobType, position } = req.body;
+
+        // Validate required fields
+        if (!title || !description || !requirements || !location || !salary || !experience || !jobType || !position) {
+            return res.status(400).json({
+                message: 'Some field is missing.',
+                success: false
+            });
+        }
+
+        // Find job by ID
+        const job = await Job.findById(jobId);
+        if (!job) {
+            return res.status(404).json({
+                message: 'Job not found',
+                success: false
+            });
+        }
+
+        // Verify that only the creator can edit the job
+        if (job.created_by.toString() !== recruiterId) {
+            return res.status(403).json({
+                message: 'You are not authorized to update this job',
+                success: false
+            });
+        }
+
+        // Update job fields
+        job.title = title;
+        job.description = description;
+        job.requirements = requirements.split(',').map(req => req.trim());
+        job.location = location;
+        job.salary = salary;
+        job.experience = experience;
+        job.jobType = jobType;
+        job.position = position;
+
+        await job.save();
+
+        return res.status(200).json({
+            message: 'Job updated successfully',
+            job,
+            success: true
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Error",
+            success: false,
+            error: error.message
+        });
+    }
+};
+
 
 

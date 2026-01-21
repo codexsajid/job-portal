@@ -1,6 +1,6 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcrypt"
-import { sendPasswordResetEmail, sendOtpEmail, sendForgotPasswordOtpEmail } from "../middleware/emailCode.js";
+import { sendPasswordResetEmail, sendForgotPasswordOtpEmail } from "../middleware/emailCode.js";
 
 // Generate 4-digit OTP
 export const generateOtp = () => Math.floor(1000 + Math.random() * 9000).toString();

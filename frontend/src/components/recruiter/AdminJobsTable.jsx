@@ -54,6 +54,7 @@ const AdminJobsTable = () => {
                                             className="w-35 p-3"
                                         >
                                             <div
+                                                onClick={() => navigate(`/admin/job/edit/${job._id}`)}
                                                 className='flex items-center gap-2 cursor-pointer'>
                                                 <Edit2 size={18} />
                                                 <span>Edit</span>

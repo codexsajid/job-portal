@@ -13,6 +13,7 @@ import CreateCompany from './components/recruiter/CreateCompany'
 import CompanySetup from './components/recruiter/CompanySetup'
 import AdminJob from './components/recruiter/AdminJobs'
 import CreateAdminJob from './components/recruiter/CreateAdminJob'
+import EditJob from './components/recruiter/EditJob'
 import Applicants from './components/recruiter/Applicants'
 import ForgotPassword from './components/auth/ForgotPassword'
 import Otp from './components/auth/Otp'
@@ -116,6 +117,14 @@ function App() {
       element: (
         <ProtectedRoute role="recruiter">
           <CreateAdminJob />
+        </ProtectedRoute>
+      )
+    },
+    {
+      path: "/admin/job/edit/:id",
+      element: (
+        <ProtectedRoute role="recruiter">
+          <EditJob />
         </ProtectedRoute>
       )
     },
