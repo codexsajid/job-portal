@@ -68,7 +68,7 @@ export const register = async (req, res) => {
     }
 };
 
-export const verifyOtp = async (req, res) => {
+export const verifySignupOtp = async (req, res) => {
     try {
         const { email, otp } = req.body;
 
