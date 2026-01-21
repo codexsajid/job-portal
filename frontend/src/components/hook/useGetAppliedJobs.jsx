@@ -1,22 +1,32 @@
-import axios from 'axios'
-import { useEffect } from 'react'
-import { APPLICANT_END_POINT_URL } from '../utiles/urls'
-import { useDispatch } from 'react-redux'
-import { setAppliedJobs } from '../redux/jobSlice'
+import axios from "axios";
+import { useEffect } from "react";
+import { APPLICANT_END_POINT_URL } from "../utiles/urls";
+import { useDispatch } from "react-redux";
+import { setAppliedJobs } from "../redux/jobSlice";
 
 export const useGetAppliedJobs = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
     useEffect(() => {
         const fetchAppliedJobs = async () => {
             try {
-                const res = await axios.get(`${APPLICANT_END_POINT_URL}/get`, { withCredentials: true })
+                const res = await axios.get(
+                    `${APPLICANT_END_POINT_URL}/get`,
+                    { withCredentials: true }
+                );
+
                 if (res.data.success) {
-                    dispatch(setAppliedJobs(res?.data?.application))
+                    dispatch(setAppliedJobs(res.data.application || []));
                 }
             } catch (error) {
-                console.log(error)
+                if (error?.response?.status === 400) {
+                    dispatch(setAppliedJobs([]));
+                } else {
+                    console.error("Applied jobs fetch error:", error);
+                }
             }
-        }
-        fetchAppliedJobs()
-    }, [])
-}
+        };
+
+        fetchAppliedJobs();
+    }, [dispatch]);
+};
