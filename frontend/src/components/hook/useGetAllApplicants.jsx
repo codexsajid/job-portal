@@ -12,7 +12,6 @@ const useGetAllApplicants = (jobId) => {
             try {
                 const res = await axios.get(`${APPLICANT_END_POINT_URL}/${jobId}/applicants`, { withCredentials: true });
                 if (res.data.success) {
-                    // Only dispatch the applications array
                     dispatch(setApplicants(res.data.job.applications || []));
                 }
             } catch (error) {

@@ -35,8 +35,6 @@ const Otp = () => {
 
         try {
             setLoading(true)
-
-            // Use appropriate endpoint based on flow
             const endpoint = isPasswordReset ? '/verify-reset-otp' : '/verify-otp'
 
             const res = await axios.post(
@@ -49,10 +47,9 @@ const Otp = () => {
                 toast.success(res.data.message || "OTP verified successfully")
 
                 if (isPasswordReset) {
-                    // Password reset flow
                     navigate("/newPassword")
                 } else {
-                    // Signup flow
+
                     localStorage.removeItem("emailForOtp")
                     navigate("/login")
                 }
@@ -90,7 +87,7 @@ const Otp = () => {
                         <Label className="block text-gray-700 mb-2 text-xs sm:text-sm">Enter One-Time Password</Label>
                         <p className='text-xs sm:text-sm text-gray-500 mb-3'>Sent to {email}</p>
                         <Input
-                            className="w-full text-center tracking-widest text-lg sm:text-xl py-3 border-gray-500 text-xs sm:text-base"
+                            className="w-full text-center tracking-widest text-lg sm:text-xl py-3 border-gray-500"
                             type="text"
                             name="otp"
                             maxLength={4}
