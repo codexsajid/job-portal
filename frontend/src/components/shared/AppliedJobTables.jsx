@@ -62,7 +62,7 @@ const AppliedJobTables = () => {
                 </Table>
             </div>
 
-            {/* Mobile Card View (UNCHANGED UI ❤️) */}
+            {/* Mobile Card View */}
             <div className="sm:hidden space-y-4">
                 {appliedJobs.length === 0 ? (
                     <div className="text-center py-8 text-sm text-gray-500">
@@ -84,7 +84,7 @@ const AppliedJobTables = () => {
                                     </div>
 
                                     <Badge
-                                        className={`text-xs flex-shrink-0 ${getStatusClass(
+                                        className={`text-xs ${getStatusClass(
                                             job?.status
                                         )}`}
                                     >

@@ -18,6 +18,8 @@ const JobDescription = () => {
     ) || false;
 
     const [isApplied, setIsApplied] = useState(isIntiallyApplied);
+    const [loading, setLoading] = useState(false)
+
 
     const param = useParams()
     const jobId = param.id
@@ -25,6 +27,7 @@ const JobDescription = () => {
 
     const applyJobHandler = async () => {
         try {
+            setLoading(true);
             const res = await axios.post(
                 `${APPLICANT_END_POINT_URL}/apply/${jobId}`, {}, { withCredentials: true }
             );
@@ -33,11 +36,13 @@ const JobDescription = () => {
                 const updatedSingleJob = { ...singleJob, applications: [...singleJob.applications, { applicant: user?._id }] }
                 dispatch(setSingleJob(updatedSingleJob)); // helps us to real time UI update
                 toast.success(res.data.message);
-
             }
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
+        }
+        finally {
+            setLoading(false);
         }
     }
 
@@ -101,11 +106,17 @@ const JobDescription = () => {
                 {/* Apply Button */}
                 <div className='mt-4 sm:mt-6'>
                     <Button
-                        onClick={isApplied ? null : applyJobHandler}
-                        disabled={isApplied}
-                        className={`w-full sm:w-auto py-1.5 sm:py-2 md:py-3 px-3 sm:px-4 md:px-6 text-xs sm:text-sm md:text-base rounded-lg font-semibold ${isApplied ? 'bg-gray-600 cursor-not-allowed' : 'bg-[#7209b7] hover:bg-[#5f32ad]'}`}>
-                        {isApplied ? 'Already Applied' : 'Apply Job'}
+                        onClick={isApplied || loading ? null : applyJobHandler}
+                        disabled={isApplied || loading}
+                        className={`w-full sm:w-auto py-1.5 sm:py-2 md:py-3 px-3 sm:px-4 md:px-6 text-xs sm:text-sm md:text-base rounded-lg font-semibold flex items-center justify-center gap-2 ${isApplied ? 'bg-gray-600 cursor-not-allowed' : loading ? 'bg-purple-500 cursor-wait' : 'bg-[#7209b7] hover:bg-[#5f32ad]'}`}
+                    >
+                        {loading && (
+                            <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                        )}
+
+                        {isApplied ? "Already Applied" : loading ? "Applying..." : "Apply Job"}
                     </Button>
+
                 </div>
             </div>
         </div>
