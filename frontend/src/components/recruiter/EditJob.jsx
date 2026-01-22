@@ -125,16 +125,16 @@ const EditJob = () => {
     }
 
     return (
-        <div className='max-w-4xl mx-auto p-8'>
-            <div className='flex items-center gap-2 mb-4'>
+        <div className='max-w-4xl mx-auto p-3 sm:p-4 md:p-8'>
+            <div className='flex items-center gap-2 mb-4 sm:mb-6'>
                 <ArrowLeft
                     className='cursor-pointer'
                     onClick={() => navigate('/admin/jobs')}
                 />
-                <h1 className='font-bold text-xl'>Edit Job</h1>
+                <h1 className='font-bold text-lg sm:text-xl'>Edit Job</h1>
             </div>
 
-            <div className='border border-gray-200 rounded-lg shadow-sm p-8'>
+            <div className='border border-gray-200 rounded-lg shadow-sm p-4 sm:p-6 md:p-8'>
                 <form onSubmit={handleSubmit} className='space-y-6'>
                     {/* Job Title */}
                     <div>
@@ -254,10 +254,10 @@ const EditJob = () => {
                     </div>
 
                     {/* Buttons */}
-                    <div className='flex gap-4 pt-6'>
+                    <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6'>
                         <Button
                             type="submit"
-                            className="flex-1"
+                            className="w-full sm:flex-1"
                             disabled={loading}
                         >
                             {loading ? (
@@ -272,7 +272,7 @@ const EditJob = () => {
                         <Button
                             type="button"
                             variant="outline"
-                            className="flex-1"
+                            className="w-full sm:flex-1"
                             onClick={() => navigate('/admin/jobs')}
                         >
                             Cancel

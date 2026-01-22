@@ -66,11 +66,11 @@ const CreateAdminJob = () => {
     return (
         <div>
             <Navbar />
-            <div className="max-w-4xl mx-auto my-4 p-4 sm:p-6 shadow-xl bg-white rounded-lg">
+            <div className="max-w-4xl mx-auto my-4 sm:my-6 p-3 sm:p-4 md:p-6 shadow-xl bg-white rounded-lg">
                 <form onSubmit={submitHandler}>
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-8">
+                    <div className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-8">
                         <Button
-                            className="flex items-center text-gray-600 cursor-pointer"
+                            className="flex items-center text-gray-600 cursor-pointer w-fit"
                             variant="outline"
                             type="button"
                             onClick={() => navigate("/admin/jobs")}
@@ -78,10 +78,10 @@ const CreateAdminJob = () => {
                             <ArrowLeft className="mt-0.5" />
                             <span>Back</span>
                         </Button>
-                        <h1 className="text-2xl sm:text-3xl font-bold">Post Job</h1>
+                        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Post Job</h1>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
                         <div className="grid gap-2">
                             <Label htmlFor="title">Title</Label>
                             <Input
