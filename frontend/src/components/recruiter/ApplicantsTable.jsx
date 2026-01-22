@@ -28,7 +28,6 @@ const ApplicantsTable = () => {
     }
 
     const { applicants } = useSelector((store) => store.application)
-    console.log(applicants[1].status)
     return (
         <div className='overflow-x-auto'>
             <Table className='text-xs sm:text-sm'>
