@@ -29,7 +29,6 @@ const JobDescription = () => {
                 `${APPLICANT_END_POINT_URL}/apply/${jobId}`, {}, { withCredentials: true }
             );
             if (res.data.success) {
-                console.log(res)
                 setIsApplied(true); // Update the local state
                 const updatedSingleJob = { ...singleJob, applications: [...singleJob.applications, { applicant: user?._id }] }
                 dispatch(setSingleJob(updatedSingleJob)); // helps us to real time UI update
