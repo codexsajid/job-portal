@@ -213,24 +213,33 @@ export const profileUpdate = async (req, res) => {
             return res.status(404).json({ message: "User not found.", success: false });
         }
 
-        // Handle file upload safely
-        let cloudResponse = null;
-        if (req.file) {
-            const fileUri = getDataUri(req.file);
-            const isPdf = req.file.mimetype === "application/pdf";
-            const originalName = req.file.originalname;
-            const fileNameWithoutExt = originalName.replace(/\.[^/.]+$/, "");
-            cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
-                resource_type: isPdf ? "raw" : "image",
-                folder: isPdf ? "jobportal/resumes" : "jobportal/images",
-                public_id: fileNameWithoutExt,
-                format: isPdf ? "pdf" : undefined,
+        // Handle profile photo upload
+        if (req.files && req.files['profilePhoto']) {
+            const profilePhotoFile = req.files['profilePhoto'][0];
+            const fileUri = getDataUri(profilePhotoFile);
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+                resource_type: "image",
+                folder: "jobportal/profile_photos",
                 use_filename: true,
                 unique_filename: false
             });
+            updatedUser.profile.profilePhoto = cloudResponse.secure_url;
+        }
 
+        // Handle resume upload
+        if (req.files && req.files['resume']) {
+            const resumeFile = req.files['resume'][0];
+            const fileUri = getDataUri(resumeFile);
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+                resource_type: "raw",
+                folder: "jobportal/resumes",
+                public_id: resumeFile.originalname.replace(/\.[^/.]+$/, ""),
+                format: "pdf",
+                use_filename: true,
+                unique_filename: false
+            });
             updatedUser.profile.resume = cloudResponse.secure_url;
-            updatedUser.profile.resumeOriginalName = req.file.originalname;
+            updatedUser.profile.resumeOriginalName = resumeFile.originalname;
         }
 
         // Text fields

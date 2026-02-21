@@ -1,7 +1,7 @@
 import express from 'express';
 import { login, logout, profileUpdate, register, verifySignupOtp } from '../controllers/user.controller.js';
 import isAuthenticated from '../middleware/isAutentication.js';
-import { singleUpload } from '../middleware/multer.js';
+import { singleUpload, multiUpload } from '../middleware/multer.js';
 import { resetPassword, sendOtp, verifyResetOtp } from '../controllers/otp.controller.js';
 
 
@@ -11,7 +11,7 @@ route.post('/register', singleUpload, register);
 route.post("/verify-otp", verifySignupOtp);
 route.post('/login', login);
 route.get('/logout', logout);
-route.post('/profile/update', isAuthenticated, singleUpload, profileUpdate);
+route.post('/profile/update', isAuthenticated, multiUpload, profileUpdate);
 
 //OTP
 route.post('/send-otp', sendOtp)

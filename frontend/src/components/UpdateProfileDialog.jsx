@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader2, Camera } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { USER_END_POINT_URL } from "./utiles/urls";
@@ -20,18 +20,33 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         email: user?.email || "",
         phoneNumber: user?.phoneNumber || "",
         skills: user?.profile?.skills?.join(", ") || "",
-        file: null,
+        profilePhoto: null,
+        resume: null,
     });
+
+    // For previewing profile photo before upload
+    const [profilePhotoPreview, setProfilePhotoPreview] = useState(user?.profile?.profilePhoto || "");
 
     const dispatch = useDispatch();
 
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     };
-    const fileChangeHandler = (e) => {
+
+    const profilePhotoChangeHandler = (e) => {
         const file = e.target.files?.[0];
-        setInput({ ...input, file })
-    }
+        if (file) {
+            setInput({ ...input, profilePhoto: file });
+            // Create preview URL
+            const previewUrl = URL.createObjectURL(file);
+            setProfilePhotoPreview(previewUrl);
+        }
+    };
+
+    const resumeChangeHandler = (e) => {
+        const file = e.target.files?.[0];
+        setInput({ ...input, resume: file });
+    };
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -43,8 +58,15 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         formData.append("phoneNumber", input.phoneNumber);
         formData.append("bio", input.bio);
         formData.append("skills", input.skills);
-        if (input.file) {
-            formData.append("file", input.file);
+
+        // Append profile photo if selected
+        if (input.profilePhoto) {
+            formData.append("profilePhoto", input.profilePhoto);
+        }
+
+        // Append resume if selected
+        if (input.resume) {
+            formData.append("resume", input.resume);
         }
 
         try {
@@ -70,12 +92,37 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="w-full max-w-[90vw] sm:max-w-[425px] rounded-lg" onInteractOutside={() => setOpen(false)}>
+            <DialogContent className="w-full max-w-[90vw] sm:max-w-106.25 rounded-lg" onInteractOutside={() => setOpen(false)}>
                 <DialogHeader>
                     <DialogTitle className="text-base sm:text-lg">Update Profile</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={submitHandler}>
                     <div className="grid gap-3 sm:gap-4 py-4 max-h-[60vh] overflow-y-auto">
+                        {/* Profile Photo Section */}
+                        <div className="flex flex-col items-center gap-3 mb-4">
+                            <div className="relative">
+                                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-200">
+                                    <img
+                                        src={profilePhotoPreview || user?.profile?.profilePhoto || "https://github.com/shadcn.png"}
+                                        alt="Profile Photo"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <label htmlFor="profilePhoto" className="absolute bottom-0 right-0 bg-red-500 text-white p-1.5 rounded-full cursor-pointer hover:bg-red-600 transition-colors">
+                                    <Camera size={16} />
+                                    <input
+                                        id="profilePhoto"
+                                        name="profilePhoto"
+                                        type="file"
+                                        accept="image/*"
+                                        className="hidden"
+                                        onChange={profilePhotoChangeHandler}
+                                    />
+                                </label>
+                            </div>
+                            <span className="text-xs text-gray-500">Click camera icon to update profile photo</span>
+                        </div>
+
                         <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
                             <Label htmlFor="fullname" className="text-xs sm:text-sm">Name</Label>
                             <Input id="fullname" name="fullname" className="col-span-1 sm:col-span-3 text-xs sm:text-sm py-1 sm:py-2" value={input.fullname} onChange={changeEventHandler} />
@@ -111,7 +158,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 type="file"
                                 accept="application/pdf"
                                 className="col-span-1 sm:col-span-3 text-xs py-1 sm:py-2"
-                                onChange={fileChangeHandler}
+                                onChange={resumeChangeHandler}
                             />
                         </div>
                     </div>
