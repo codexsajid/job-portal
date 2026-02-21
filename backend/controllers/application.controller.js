@@ -157,3 +157,47 @@ export const updatedStatus = async (req, res) => {
         })
     }
 }
+
+export const deleteApplication = async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const applicationId = req.params.id;
+
+        const application = await Application.findById(applicationId);
+
+        if (!application) {
+            return res.status(404).json({
+                message: "Application not found",
+                success: false
+            });
+        }
+
+        // Check if the user is the owner of the application
+        if (application.applicant.toString() !== userId) {
+            return res.status(403).json({
+                message: "You are not authorized to delete this application",
+                success: false
+            });
+        }
+
+        // Remove the application from the job's applications array
+        await Job.updateOne(
+            { _id: application.job },
+            { $pull: { applications: applicationId } }
+        );
+
+        // Delete the application
+        await Application.findByIdAndDelete(applicationId);
+
+        return res.status(200).json({
+            message: "Application deleted successfully",
+            success: true
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Error",
+            success: false,
+            error: error.message
+        });
+    }
+}

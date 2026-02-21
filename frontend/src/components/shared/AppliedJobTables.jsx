@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Table,
     TableBody,
@@ -8,7 +8,12 @@ import {
     TableRow,
 } from "../ui/table";
 import { Badge } from "../ui/badge";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Trash2, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import axios from "axios";
+import { APPLICANT_END_POINT_URL } from "../utiles/urls";
+import { setAppliedJobs } from "../redux/jobSlice";
 
 const getStatusClass = (status) => {
     if (status === "rejected") return "bg-red-500";
@@ -17,7 +22,29 @@ const getStatusClass = (status) => {
 };
 
 const AppliedJobTables = () => {
+    const dispatch = useDispatch();
     const { appliedJobs = [] } = useSelector((store) => store.job);
+    const [deletingId, setDeletingId] = useState(null);
+
+    const handleDelete = async (applicationId) => {
+        setDeletingId(applicationId);
+        try {
+            const res = await axios.delete(
+                `${APPLICANT_END_POINT_URL}/${applicationId}`,
+                { withCredentials: true }
+            );
+            if (res.data.success) {
+                toast.success(res.data.message);
+                // Remove the deleted application from the list
+                const updatedJobs = appliedJobs.filter(job => job._id !== applicationId);
+                dispatch(setAppliedJobs(updatedJobs));
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || "Failed to delete application");
+        } finally {
+            setDeletingId(null);
+        }
+    };
 
     return (
         <div>
@@ -30,13 +57,14 @@ const AppliedJobTables = () => {
                             <TableHead>Job Role</TableHead>
                             <TableHead>Company</TableHead>
                             <TableHead className="text-right">Status</TableHead>
+                            <TableHead className="text-right">Action</TableHead>
                         </TableRow>
                     </TableHeader>
 
                     <TableBody>
                         {appliedJobs.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={4} className="text-center py-4 text-gray-500">
+                                <TableCell colSpan={5} className="text-center py-4 text-gray-500">
                                     You have not applied any jobs.
                                 </TableCell>
                             </TableRow>
@@ -54,6 +82,20 @@ const AppliedJobTables = () => {
                                         >
                                             {job?.status?.toLowerCase()}
                                         </Badge>
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        <button
+                                            onClick={() => handleDelete(job._id)}
+                                            disabled={deletingId === job._id}
+                                            className="p-1 hover:bg-red-100 rounded text-red-500 disabled:opacity-50"
+                                            title="Delete application"
+                                        >
+                                            {deletingId === job._id ? (
+                                                <Loader2 className="h-4 w-4 animate-spin" />
+                                            ) : (
+                                                <Trash2 className="h-4 w-4" />
+                                            )}
+                                        </button>
                                     </TableCell>
                                 </TableRow>
                             ))
@@ -102,6 +144,21 @@ const AppliedJobTables = () => {
                                     <p className="text-gray-600">
                                         {job?.job?.company?.name}
                                     </p>
+                                </div>
+
+                                <div className="flex justify-end pt-2">
+                                    <button
+                                        onClick={() => handleDelete(job._id)}
+                                        disabled={deletingId === job._id}
+                                        className="flex items-center gap-1 px-2 py-1 text-red-500 hover:bg-red-100 rounded disabled:opacity-50"
+                                    >
+                                        {deletingId === job._id ? (
+                                            <Loader2 className="h-3 w-3 animate-spin" />
+                                        ) : (
+                                            <Trash2 className="h-3 w-3" />
+                                        )}
+                                        <span className="text-xs">Delete</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

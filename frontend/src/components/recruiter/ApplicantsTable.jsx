@@ -1,24 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import { MoreHorizontal } from 'lucide-react'
+import { MoreHorizontal, Loader2 } from 'lucide-react'
 import useGetAllApplicants from '../hook/useGetAllApplicants'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import axios from 'axios'
 import { APPLICANT_END_POINT_URL } from '../utiles/urls'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setApplicants } from '../redux/applicationSlice'
 import { Badge } from '../ui/badge'
 
 const shortListStatus = ["Accepted", "Rejected", "Pending"]
 
 const ApplicantsTable = () => {
     const param = useParams()
+    const dispatch = useDispatch()
+    const [loadingApplicantId, setLoadingApplicantId] = useState(null)
     useGetAllApplicants(param.id)
 
     const { applicants } = useSelector((store) => store.application)
 
     const statusHandler = async (status, id) => {
+        setLoadingApplicantId(id)
         try {
             const res = await axios.post(
                 `${APPLICANT_END_POINT_URL}/status/${id}/update`,
@@ -27,9 +31,16 @@ const ApplicantsTable = () => {
             )
             if (res.data.success) {
                 toast.success(res.data.message)
+                // Update the specific applicant's status in Redux store
+                const updatedApplicants = applicants.map((applicant) =>
+                    applicant._id === id ? { ...applicant, status } : applicant
+                )
+                dispatch(setApplicants(updatedApplicants))
             }
         } catch (error) {
             toast.error(error?.response?.data?.message || "Something went wrong")
+        } finally {
+            setLoadingApplicantId(null)
         }
     }
 
@@ -96,8 +107,12 @@ const ApplicantsTable = () => {
 
                                     <TableCell className="text-right">
                                         <Popover>
-                                            <PopoverTrigger className="cursor-pointer">
-                                                <MoreHorizontal />
+                                            <PopoverTrigger className="cursor-pointer" disabled={loadingApplicantId === applicant._id}>
+                                                {loadingApplicantId === applicant._id ? (
+                                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                                ) : (
+                                                    <MoreHorizontal />
+                                                )}
                                             </PopoverTrigger>
 
                                             <PopoverContent className="w-36">
@@ -150,8 +165,12 @@ const ApplicantsTable = () => {
                                 </div>
 
                                 <Popover>
-                                    <PopoverTrigger className="cursor-pointer">
-                                        <MoreHorizontal size={18} />
+                                    <PopoverTrigger className="cursor-pointer" disabled={loadingApplicantId === applicant._id}>
+                                        {loadingApplicantId === applicant._id ? (
+                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                        ) : (
+                                            <MoreHorizontal size={18} />
+                                        )}
                                     </PopoverTrigger>
                                     <PopoverContent className="w-36">
                                         {shortListStatus.map((status, i) => (
