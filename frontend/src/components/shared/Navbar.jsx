@@ -6,18 +6,20 @@ import {
 import React from "react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "../ui/button";
-import { LogOut, User2 } from "lucide-react";
+import { LogOut, User2, Bookmark, Moon, Sun } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/authSlice";
 import { toast } from "sonner";
 import { USER_END_POINT_URL } from "../utiles/urls";
 import axios from "axios";
+import useDarkMode from "../hook/useDarkMode";
 
 const Navbar = () => {
     const user = useSelector((store) => store.auth.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { theme, toggleTheme } = useDarkMode();
 
     const logoutHandler = async () => {
         try {
@@ -34,7 +36,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className="bg-white w-full">
+        <div className="bg-background border-b border-border w-full">
             <div className="flex justify-between items-center w-full mx-auto max-w-6xl h-auto sm:h-16 px-3 sm:px-6 lg:px-8 py-2 sm:py-0">
                 <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold whitespace-nowrap">
                     Job<span className="text-red-500">Portal</span>
@@ -59,6 +61,15 @@ const Navbar = () => {
                         }
 
                     </ul>
+
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={toggleTheme}
+                        aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+                    >
+                        {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+                    </Button>
 
                     {!user ? (
                         <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
@@ -93,17 +104,23 @@ const Navbar = () => {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col my-2 text-gray-600 text-xs sm:text-sm">
-                                    {
-                                        user && user.role == "user" ? (
+                                <div className="flex flex-col my-2 text-muted-foreground text-xs sm:text-sm">
+                                    <>
+                                        <div className="flex w-fit items-center gap-2 sm:gap-3 cursor-pointer">
+                                            <User2 size={16} />
+                                            <Link to="/profile">
+                                                <Button variant="link" className="text-xs sm:text-sm p-0">View Profile</Button>
+                                            </Link>
+                                        </div>
+                                        {user && user.role === "user" && (
                                             <div className="flex w-fit items-center gap-2 sm:gap-3 cursor-pointer">
-                                                <User2 size={16} />
-                                                <Link to="/profile">
-                                                    <Button variant="link" className="text-xs sm:text-sm p-0">View Profile</Button>
+                                                <Bookmark size={16} />
+                                                <Link to="/saved-jobs">
+                                                    <Button variant="link" className="text-xs sm:text-sm p-0">Saved Jobs</Button>
                                                 </Link>
                                             </div>
-                                        ) : <></>
-                                    }
+                                        )}
+                                    </>
                                     <div
                                         className="flex w-fit items-center gap-2 sm:gap-3 cursor-pointer"
                                     >

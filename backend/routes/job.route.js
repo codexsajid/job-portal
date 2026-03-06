@@ -7,6 +7,7 @@ const route = express()
 route.post("/postJob", isAuthenticated, postJob);
 route.get("/getAdminJob", isAuthenticated, getAdminJobs);
 route.get("/getAllJobs", isAuthenticated, getAllJobs);
+route.get("/getAllJobsPublic", getAllJobs);
 route.get("/getJobById/:id", isAuthenticated, getJobById);
 route.put("/updateJob/:id", isAuthenticated, updateJob);
 

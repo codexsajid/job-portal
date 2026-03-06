@@ -49,7 +49,7 @@ const ForgotPassword = () => {
 
     return (
         <div className='max-w-md sm:max-w-lg m-auto mt-12 sm:mt-24 px-4'>
-            <div className='border border-gray-200 rounded-sm shadow-sm p-6 sm:p-10'>
+            <div className='border border-border rounded-sm shadow-sm p-6 sm:p-10 bg-card'>
                 <form onSubmit={submitHandler} className='p-0 sm:p-4'>
 
                     <div className='flex items-center gap-2 my-5'>

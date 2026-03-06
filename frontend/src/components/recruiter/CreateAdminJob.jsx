@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button } from '../ui/button'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import Navbar from '../shared/Navbar'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import axios from 'axios'
@@ -66,11 +66,11 @@ const CreateAdminJob = () => {
     return (
         <div>
             <Navbar />
-            <div className="max-w-4xl mx-auto my-4 sm:my-6 p-3 sm:p-4 md:p-6 shadow-xl bg-white rounded-lg">
+            <div className="max-w-4xl mx-auto my-4 sm:my-6 p-3 sm:p-4 md:p-6 shadow-xl bg-card border border-border rounded-lg">
                 <form onSubmit={submitHandler}>
                     <div className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-8">
                         <Button
-                            className="flex items-center text-gray-600 cursor-pointer w-fit"
+                            className="flex items-center text-muted-foreground cursor-pointer w-fit"
                             variant="outline"
                             type="button"
                             onClick={() => navigate("/admin/jobs")}

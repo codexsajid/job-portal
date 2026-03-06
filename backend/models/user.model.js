@@ -41,7 +41,8 @@ const userSchema = new mongoose.Schema({
         resume: { type: String, default: '' },
         resumeOriginalName: { type: String, default: '' },
         company: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' }
-    }
+    },
+    savedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }]
 }, {
     timestamps: true
 });

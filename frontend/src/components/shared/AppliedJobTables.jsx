@@ -17,7 +17,7 @@ import { setAppliedJobs } from "../redux/jobSlice";
 
 const getStatusClass = (status) => {
     if (status === "rejected") return "bg-red-500";
-    if (status === "pending") return "bg-gray-500";
+    if (status === "pending") return "bg-muted";
     return "bg-green-400";
 };
 
@@ -64,7 +64,7 @@ const AppliedJobTables = () => {
                     <TableBody>
                         {appliedJobs.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={5} className="text-center py-4 text-gray-500">
+                                <TableCell colSpan={5} className="text-center py-4 text-muted-foreground">
                                     You have not applied any jobs.
                                 </TableCell>
                             </TableRow>
@@ -107,20 +107,20 @@ const AppliedJobTables = () => {
             {/* Mobile Card View */}
             <div className="sm:hidden space-y-4">
                 {appliedJobs.length === 0 ? (
-                    <div className="text-center py-8 text-sm text-gray-500">
+                    <div className="text-center py-8 text-sm text-muted-foreground">
                         You have not applied any jobs.
                     </div>
                 ) : (
                     appliedJobs.map((job) => (
                         <div
                             key={job?._id}
-                            className="bg-gray-50 border border-gray-200 rounded-lg p-3"
+                            className="bg-card border border-border rounded-lg p-3"
                         >
                             <div className="space-y-2 text-xs">
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <p className="font-semibold text-gray-700">Date:</p>
-                                        <p className="text-gray-600">
+                                        <p className="font-semibold text-card-foreground">Date:</p>
+                                        <p className="text-muted-foreground">
                                             {job?.createdAt?.split("T")[0]}
                                         </p>
                                     </div>
@@ -135,13 +135,13 @@ const AppliedJobTables = () => {
                                 </div>
 
                                 <div>
-                                    <p className="font-semibold text-gray-700">Job Role:</p>
-                                    <p className="text-gray-600">{job?.job?.title}</p>
+                                    <p className="font-semibold text-card-foreground">Job Role:</p>
+                                    <p className="text-muted-foreground">{job?.job?.title}</p>
                                 </div>
 
                                 <div>
-                                    <p className="font-semibold text-gray-700">Company:</p>
-                                    <p className="text-gray-600">
+                                    <p className="font-semibold text-card-foreground">Company:</p>
+                                    <p className="text-muted-foreground">
                                         {job?.job?.company?.name}
                                     </p>
                                 </div>

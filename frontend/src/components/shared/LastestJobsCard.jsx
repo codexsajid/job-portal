@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom'
 const LastestJobsCard = ({ job }) => {
     const navigate = useNavigate()
     return (
-        <div className='border border-gray-100 p-3 sm:p-4 rounded-md shadow-xl bg-white cursor-pointer hover:shadow-2xl transition-shadow' onClick={() => navigate(`/job/description/${job._id}`)}>
+        <div className='border border-border p-3 sm:p-4 rounded-md shadow-xl bg-card cursor-pointer hover:shadow-2xl transition-shadow' onClick={() => navigate(`/job/description/${job._id}`)}>
             <div>
                 <h1 className='font-medium text-sm sm:text-base md:text-lg'>{job?.company?.name}</h1>
-                <p className='text-xs sm:text-sm text-gray-500'>{job?.company?.location}</p>
+                <p className='text-xs sm:text-sm text-muted-foreground'>{job?.company?.location}</p>
             </div>
             <div>
                 <h1 className='font-bold text-base sm:text-lg'>{job?.title}</h1>
-                <p className='text-xs sm:text-sm text-gray-600'>{job?.description.substring(0, 80)}....</p>
+                <p className='text-xs sm:text-sm text-muted-foreground'>{job?.description.substring(0, 80)}....</p>
             </div>
             <div className='flex flex-wrap items-center gap-2 mt-3'>
                 <Badge className={"text-blue-700 font-bold text-xs sm:text-sm"} variant="ghost">{job?.position} Position</Badge>

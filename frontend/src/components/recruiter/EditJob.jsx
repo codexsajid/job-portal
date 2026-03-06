@@ -134,7 +134,7 @@ const EditJob = () => {
                 <h1 className='font-bold text-lg sm:text-xl'>Edit Job</h1>
             </div>
 
-            <div className='border border-gray-200 rounded-lg shadow-sm p-4 sm:p-6 md:p-8'>
+            <div className='border border-border rounded-lg shadow-sm p-4 sm:p-6 md:p-8 bg-card'>
                 <form onSubmit={handleSubmit} className='space-y-6'>
                     {/* Job Title */}
                     <div>
@@ -157,7 +157,7 @@ const EditJob = () => {
                             value={formData.description}
                             onChange={handleChange}
                             placeholder="Describe the job responsibilities..."
-                            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full border border-border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows="4"
                             required
                         />
@@ -171,7 +171,7 @@ const EditJob = () => {
                             value={formData.requirements}
                             onChange={handleChange}
                             placeholder="e.g., React, JavaScript, CSS, REST API"
-                            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full border border-border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows="3"
                             required
                         />

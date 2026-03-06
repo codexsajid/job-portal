@@ -18,12 +18,14 @@ import Applicants from './components/recruiter/Applicants'
 import ForgotPassword from './components/auth/ForgotPassword'
 import Otp from './components/auth/Otp'
 import NewPassword from './components/auth/NewPassword'
+import SavedJobs from './components/SavedJobs'
 import ProtectedRoute from './components/middleware/ProtectedRoute'
 import OtpGuard from "./components/middleware/OtpGuard";
 import PublicRoute from './components/middleware/PublicRoute'
+import useGetSavedJobs from './components/hook/useGetSavedJobs'
 
 function App() {
-
+  useGetSavedJobs()
 
   const appRouter = createBrowserRouter([
     {
@@ -77,6 +79,10 @@ function App() {
     {
       path: '/profile',
       element: <Profile />
+    },
+    {
+      path: '/saved-jobs',
+      element: <SavedJobs />
     },
 
     //Recruiter

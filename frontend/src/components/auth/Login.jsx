@@ -50,11 +50,11 @@ const Login = () => {
     if (user) {
       navigate("/")
     }
-  }, [])
+  }, [navigate, user])
   return (
     <div>
       <div className='flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6'>
-        <form onSubmit={submitHandler} className='w-full sm:w-1/2 border border-gray-200 rounded-md p-4 sm:p-6 my-10 shadow-sm'>
+        <form onSubmit={submitHandler} className='w-full sm:w-1/2 border border-border rounded-md p-4 sm:p-6 my-10 shadow-sm bg-card'>
           <h1 className='font-bold text-lg sm:text-xl md:text-2xl mb-5'>Login</h1>
           <div className='my-2'>
             <Label className='my-2 text-xs sm:text-sm'>Email</Label>

@@ -37,13 +37,13 @@ const CompaniesTable = () => {
                         {allCompany?.length === 0 ? (
                             <TableRow>
                                 <TableCell colSpan={4} className="text-center py-8">
-                                    <p className='text-gray-500'>Company Not Found</p>
-                                    <p className='text-sm text-gray-400'>You have not registered any company yet.</p>
+                                    <p className='text-muted-foreground'>Company Not Found</p>
+                                    <p className='text-sm text-muted-foreground/80'>You have not registered any company yet.</p>
                                 </TableCell>
                             </TableRow>
                         ) : (
                             allCompany?.map(company => (
-                                <TableRow key={company._id} className='hover:bg-gray-50'>
+                                <TableRow key={company._id} className='hover:bg-muted/20'>
                                     <TableCell>
                                         <Avatar className='h-10 w-10'>
                                             <AvatarImage
@@ -53,12 +53,12 @@ const CompaniesTable = () => {
                                         </Avatar>
                                     </TableCell>
                                     <TableCell className='font-medium'>{company.name}</TableCell>
-                                    <TableCell className='text-sm text-gray-600'>
+                                    <TableCell className='text-sm text-muted-foreground'>
                                         {company.createdAt.split('T')[0]}
                                     </TableCell>
                                     <TableCell className="text-right cursor-pointer">
                                         <Popover>
-                                            <PopoverTrigger className='hover:bg-gray-100 p-2 rounded-md transition'>
+                                            <PopoverTrigger className='hover:bg-muted/20 p-2 rounded-md transition'>
                                                 <MoreHorizontal size={18} />
                                             </PopoverTrigger>
                                             <PopoverContent
@@ -67,7 +67,7 @@ const CompaniesTable = () => {
                                                     navigate(`/admin/companies/${company._id}`)
                                                 }
                                             >
-                                                <div className='flex gap-2 items-center hover:bg-gray-100 p-2 rounded cursor-pointer'>
+                                                <div className='flex gap-2 items-center hover:bg-muted/20 p-2 rounded cursor-pointer'>
                                                     <Edit2 size={18} />
                                                     <span className='text-sm'>Edit</span>
                                                 </div>
@@ -84,14 +84,14 @@ const CompaniesTable = () => {
             {/* Mobile View */}
             <div className='md:hidden'>
                 {allCompany?.length === 0 ? (
-                    <div className="text-center py-12 bg-gray-50 rounded-lg">
-                        <p className='text-gray-500 font-medium'>Company Not Found</p>
-                        <p className='text-sm text-gray-400 mt-2'>You have not registered any company yet.</p>
+                    <div className="text-center py-12 bg-card rounded-lg">
+                        <p className='text-muted-foreground font-medium'>Company Not Found</p>
+                        <p className='text-sm text-muted-foreground/80 mt-2'>You have not registered any company yet.</p>
                     </div>
                 ) : (
                     <div className='space-y-3'>
                         {allCompany?.map(company => (
-                            <div key={company._id} className='bg-white border rounded-lg p-4 shadow-sm hover:shadow-md transition'>
+                            <div key={company._id} className='bg-card border border-border rounded-lg p-4 shadow-sm hover:shadow-md transition'>
                                 <div className='flex items-start justify-between gap-3'>
                                     <div className='flex items-center gap-3 flex-1 min-w-0'>
                                         <Avatar className='h-12 w-12 flex-shrink-0'>
@@ -102,13 +102,13 @@ const CompaniesTable = () => {
                                         </Avatar>
                                         <div className='min-w-0 flex-1'>
                                             <h3 className='font-semibold text-sm sm:text-base truncate'>{company.name}</h3>
-                                            <p className='text-xs text-gray-500 mt-1'>
+                                            <p className='text-xs text-muted-foreground mt-1'>
                                                 {company.createdAt.split('T')[0]}
                                             </p>
                                         </div>
                                     </div>
                                     <Popover>
-                                        <PopoverTrigger className='hover:bg-gray-100 p-2 rounded-md transition flex-shrink-0'>
+                                        <PopoverTrigger className='hover:bg-muted/20 p-2 rounded-md transition flex-shrink-0'>
                                             <MoreHorizontal size={18} />
                                         </PopoverTrigger>
                                         <PopoverContent
@@ -117,7 +117,7 @@ const CompaniesTable = () => {
                                                 navigate(`/admin/companies/${company._id}`)
                                             }
                                         >
-                                            <div className='flex gap-2 items-center hover:bg-gray-100 p-2 rounded cursor-pointer'>
+                                            <div className='flex gap-2 items-center hover:bg-muted/20 p-2 rounded cursor-pointer'>
                                                 <Edit2 size={18} />
                                                 <span className='text-sm'>Edit</span>
                                             </div>

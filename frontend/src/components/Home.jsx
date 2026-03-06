@@ -17,7 +17,7 @@ const Home = () => {
             navigate("/admin/companies")
         }
 
-    }, [])
+    }, [navigate, user?.role])
     return (
         <div className="w-full overflow-x-hidden">
             <Navbar />

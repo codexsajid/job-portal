@@ -65,7 +65,7 @@ const JobDescription = () => {
 
 
     return (
-        <div className='min-h-screen bg-gray-50'>
+        <div className='min-h-screen bg-background'>
             {/* Back Button */}
             <div className='max-w-6xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6'>
                 <button
@@ -78,7 +78,7 @@ const JobDescription = () => {
             </div>
 
             <div className='max-w-6xl mx-auto px-4 sm:px-6 my-6 sm:my-10 pb-24'>
-                <div className='bg-white rounded-lg shadow-sm p-4 sm:p-6'>
+                <div className='bg-card border border-border rounded-lg shadow-sm p-4 sm:p-6'>
                     <div className='flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6'>
                         <div className='flex-1'>
                             <h1 className='font-bold text-xl sm:text-2xl md:text-3xl'>{singleJob?.title}</h1>
@@ -90,7 +90,7 @@ const JobDescription = () => {
                         </div>
                     </div>
                     <div >
-                        <h1 className='my-5 border-b-2 border-b-gray-300 py-3 font-medium text-base sm:text-lg'>Job Description</h1>
+                        <h1 className='my-5 border-b-2 border-b-border py-3 font-medium text-base sm:text-lg'>Job Description</h1>
                     </div>
                     <div className='space-y-2 text-xs sm:text-sm'>
                         <h1 className='font-bold my-1'>Role: <span className='pl-2 font-normal'>{singleJob?.title}</span></h1>
@@ -108,7 +108,7 @@ const JobDescription = () => {
                     <Button
                         onClick={isApplied || loading ? null : applyJobHandler}
                         disabled={isApplied || loading}
-                        className={`w-full sm:w-auto py-1.5 sm:py-2 md:py-3 px-3 sm:px-4 md:px-6 text-xs sm:text-sm md:text-base rounded-lg font-semibold flex items-center justify-center gap-2 ${isApplied ? 'bg-gray-600 cursor-not-allowed' : loading ? 'bg-purple-500 cursor-wait' : 'bg-[#7209b7] hover:bg-[#5f32ad]'}`}
+                        className={`w-full sm:w-auto py-1.5 sm:py-2 md:py-3 px-3 sm:px-4 md:px-6 text-xs sm:text-sm md:text-base rounded-lg font-semibold flex items-center justify-center gap-2 ${isApplied ? 'bg-muted cursor-not-allowed' : loading ? 'bg-primary/80 cursor-wait' : 'bg-primary hover:bg-primary/90'}`}
                     >
                         {loading && (
                             <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>

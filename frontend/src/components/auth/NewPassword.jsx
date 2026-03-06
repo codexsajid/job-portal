@@ -66,7 +66,7 @@ const NewPassword = () => {
   if (!email) {
     return (
       <div className='max-w-md sm:max-w-lg m-auto mt-12 sm:mt-24 px-4'>
-        <div className='border border-gray-200 rounded-sm shadow-sm p-6 sm:p-10'>
+        <div className='border border-border rounded-sm shadow-sm p-6 sm:p-10 bg-card'>
           <p className='text-center text-xs sm:text-sm'>Session expired. Please start again.</p>
           <Button
             className="w-full mt-4 text-xs sm:text-sm"
@@ -81,7 +81,7 @@ const NewPassword = () => {
 
   return (
     <div className='max-w-md sm:max-w-lg m-auto mt-12 sm:mt-24 px-4 pb-10'>
-      <div className='border border-gray-200 rounded-sm shadow-sm p-6 sm:p-10'>
+      <div className='border border-border rounded-sm shadow-sm p-6 sm:p-10 bg-card'>
         <form onSubmit={submitHandler} className='p-0 sm:p-4'>
 
           <div className='flex items-center gap-2 my-5'>

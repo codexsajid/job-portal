@@ -46,7 +46,7 @@ const FilterCard = () => {
     }
     useEffect(() => {
         dispatch(setSearchQuery(selectedValue))
-    }, [selectedValue])
+    }, [dispatch, selectedValue])
     return (
         <div className='w-full p-3 sm:p-4'>
             <h1 className='font-bold text-base sm:text-lg mb-4'>Filter Jobs</h1>
@@ -62,7 +62,7 @@ const FilterCard = () => {
                                         const itemId = `id${index}-${index1}`
                                         return (
                                             <div className='flex items-center gap-2' key={index1}>
-                                                <RadioGroupItem value={data} id={itemId} className={"border border-gray-300"} />
+                                                <RadioGroupItem value={data} id={itemId} className={"border border-border"} />
                                                 <Label htmlFor={itemId} className={"text-xs sm:text-sm cursor-pointer"}>{data}</Label>
                                             </div>
                                         )

@@ -35,7 +35,7 @@ const CreateCompany = () => {
             <div className='max-w-3xl mx-auto my-6 sm:my-10 px-3 sm:px-4 md:px-6'>
                 <div className='my-6 sm:my-8'>
                     <h1 className='font-bold text-lg sm:text-2xl md:text-3xl'>Your Company Name</h1>
-                    <p className='text-gray-500 text-xs sm:text-sm md:text-base mt-2 sm:mt-3'>What would you like to give your company name? you can change the company name later also.</p>
+                    <p className='text-muted-foreground text-xs sm:text-sm md:text-base mt-2 sm:mt-3'>What would you like to give your company name? you can change the company name later also.</p>
                 </div>
                 <div>
                     <Label className={"font-bold"}>Company Name</Label>

@@ -95,10 +95,10 @@ const ApplicantsTable = () => {
                                     <TableCell>
                                         <Badge
                                             className={`${applicant.status?.toLowerCase() === "rejected"
-                                                ? "bg-red-500"
+                                                ? "bg-destructive"
                                                 : applicant.status?.toLowerCase() === "pending"
-                                                    ? "bg-gray-500"
-                                                    : "bg-green-500"
+                                                    ? "bg-muted"
+                                                    : "bg-secondary"
                                                 }`}
                                         >
                                             {applicant?.status}
@@ -120,7 +120,7 @@ const ApplicantsTable = () => {
                                                     <div
                                                         key={i}
                                                         onClick={() => statusHandler(status, applicant._id)}
-                                                        className="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                                                        className="cursor-pointer p-2 hover:bg-muted/20 rounded"
                                                     >
                                                         {status}
                                                     </div>
@@ -144,22 +144,22 @@ const ApplicantsTable = () => {
             {/* ================= MOBILE VIEW ================= */}
             <div className="md:hidden space-y-3 mt-4">
                 {applicants?.length === 0 ? (
-                    <div className="text-center py-10 bg-gray-50 rounded">
-                        <p className="text-gray-500 text-sm">No Applicants Found</p>
+                    <div className="text-center py-10 bg-card rounded">
+                        <p className="text-muted-foreground text-sm">No Applicants Found</p>
                     </div>
                 ) : (
                     applicants.map((applicant) => (
-                        <div key={applicant._id} className="bg-white border rounded-lg p-4 shadow-sm">
+                        <div key={applicant._id} className="bg-card border border-border rounded-lg p-4 shadow-sm">
 
                             <div className="flex justify-between items-start">
                                 <div>
                                     <h3 className="font-semibold text-sm">
                                         {applicant?.applicant?.fullname}
                                     </h3>
-                                    <p className="text-xs text-gray-600">
+                                    <p className="text-xs text-muted-foreground">
                                         {applicant?.applicant?.email}
                                     </p>
-                                    <p className="text-xs text-gray-500">
+                                    <p className="text-xs text-muted-foreground">
                                         {applicant?.createdAt?.split("T")[0]}
                                     </p>
                                 </div>
@@ -177,7 +177,7 @@ const ApplicantsTable = () => {
                                             <div
                                                 key={i}
                                                 onClick={() => statusHandler(status, applicant._id)}
-                                                className="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                                                className="cursor-pointer p-2 hover:bg-muted/20 rounded"
                                             >
                                                 {status}
                                             </div>
@@ -203,10 +203,10 @@ const ApplicantsTable = () => {
                                 <div className="mt-2">
                                     <Badge
                                         className={`${applicant.status?.toLowerCase() === "rejected"
-                                            ? "bg-red-500"
+                                            ? "bg-destructive"
                                             : applicant.status?.toLowerCase() === "pending"
-                                                ? "bg-gray-500"
-                                                : "bg-green-500"
+                                                ? "bg-muted"
+                                                : "bg-secondary"
                                             }`}
                                     >
                                         {applicant?.status}

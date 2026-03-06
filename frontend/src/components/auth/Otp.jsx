@@ -71,8 +71,8 @@ const Otp = () => {
     }
 
     return (
-        <div className="min-h-screen flex justify-center items-center bg-gray-50 px-4 sm:px-6">
-            <div className="w-full max-w-sm border border-gray-200 rounded-xl p-6 sm:p-8 shadow-md bg-white">
+        <div className="min-h-screen flex justify-center items-center bg-background px-4 sm:px-6">
+            <div className="w-full max-w-sm border border-border rounded-xl p-6 sm:p-8 shadow-md bg-card">
                 <div className='flex items-center gap-2 mb-6'>
                     <ArrowLeft
                         size={20}
@@ -84,10 +84,10 @@ const Otp = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="text-center">
-                        <Label className="block text-gray-700 mb-2 text-xs sm:text-sm">Enter One-Time Password</Label>
-                        <p className='text-xs sm:text-sm text-gray-500 mb-3'>Sent to {email}</p>
+                        <Label className="block text-card-foreground mb-2 text-xs sm:text-sm">Enter One-Time Password</Label>
+                        <p className='text-xs sm:text-sm text-muted-foreground mb-3'>Sent to {email}</p>
                         <Input
-                            className="w-full text-center tracking-widest text-lg sm:text-xl py-3 border-gray-500"
+                            className="w-full text-center tracking-widest text-lg sm:text-xl py-3 border-border"
                             type="text"
                             name="otp"
                             maxLength={4}

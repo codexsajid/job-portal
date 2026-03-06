@@ -4,10 +4,12 @@ import { APPLICANT_END_POINT_URL } from "../utiles/urls";
 import { useDispatch } from "react-redux";
 import { setAppliedJobs } from "../redux/jobSlice";
 
-export const useGetAppliedJobs = () => {
+export const useGetAppliedJobs = (enabled = true) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if (!enabled) return;
+
         const fetchAppliedJobs = async () => {
             try {
                 const res = await axios.get(
@@ -28,5 +30,5 @@ export const useGetAppliedJobs = () => {
         };
 
         fetchAppliedJobs();
-    }, [dispatch]);
+    }, [dispatch, enabled]);
 };

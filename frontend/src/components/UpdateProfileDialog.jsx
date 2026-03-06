@@ -101,7 +101,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                         {/* Profile Photo Section */}
                         <div className="flex flex-col items-center gap-3 mb-4">
                             <div className="relative">
-                                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-200">
+                                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-border">
                                     <img
                                         src={profilePhotoPreview || user?.profile?.profilePhoto || "https://github.com/shadcn.png"}
                                         alt="Profile Photo"
@@ -120,7 +120,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                     />
                                 </label>
                             </div>
-                            <span className="text-xs text-gray-500">Click camera icon to update profile photo</span>
+                            <span className="text-xs text-muted-foreground">Click camera icon to update profile photo</span>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
@@ -139,28 +139,32 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                             <Label htmlFor="phoneNumber" className="text-xs sm:text-sm">Contact</Label>
                             <Input id="phoneNumber" name="phoneNumber" className="col-span-1 sm:col-span-3 text-xs sm:text-sm py-1 sm:py-2" value={input.phoneNumber} onChange={changeEventHandler} />
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
-                            <Label htmlFor="skills" className="text-xs sm:text-sm">Skills</Label>
-                            <Input
-                                id="skills"
-                                name="skills"
-                                className="col-span-1 sm:col-span-3 text-xs sm:text-sm py-1 sm:py-2"
-                                value={input.skills}
-                                onChange={changeEventHandler}
-                            />
-                        </div>
+                        {user?.role === "user" && (
+                            <>
+                                <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
+                                    <Label htmlFor="skills" className="text-xs sm:text-sm">Skills</Label>
+                                    <Input
+                                        id="skills"
+                                        name="skills"
+                                        className="col-span-1 sm:col-span-3 text-xs sm:text-sm py-1 sm:py-2"
+                                        value={input.skills}
+                                        onChange={changeEventHandler}
+                                    />
+                                </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
-                            <Label htmlFor="resume" className="text-xs sm:text-sm">Resume</Label>
-                            <Input
-                                id="resume"
-                                name="resume"
-                                type="file"
-                                accept="application/pdf"
-                                className="col-span-1 sm:col-span-3 text-xs py-1 sm:py-2"
-                                onChange={resumeChangeHandler}
-                            />
-                        </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 items-start sm:items-center">
+                                    <Label htmlFor="resume" className="text-xs sm:text-sm">Resume</Label>
+                                    <Input
+                                        id="resume"
+                                        name="resume"
+                                        type="file"
+                                        accept="application/pdf"
+                                        className="col-span-1 sm:col-span-3 text-xs py-1 sm:py-2"
+                                        onChange={resumeChangeHandler}
+                                    />
+                                </div>
+                            </>
+                        )}
                     </div>
                     <Button type="submit" className="w-full my-4 text-xs sm:text-sm py-2 sm:py-3" disabled={loading}>
                         {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait</> : "Update"}

@@ -78,11 +78,11 @@ const CompanySetup = () => {
     return (
         <div>
             <Navbar />
-            <div className="max-w-2xl mx-auto my-4 sm:my-6 p-3 sm:p-4 md:p-6 border rounded-lg shadow-sm bg-white">
+            <div className="max-w-2xl mx-auto my-4 sm:my-6 p-3 sm:p-4 md:p-6 border border-border rounded-lg shadow-sm bg-card">
                 <form onSubmit={submitHandler}>
                     <div className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-8">
                         <Button
-                            className="flex items-center text-gray-600 cursor-pointer w-fit"
+                            className="flex items-center text-muted-foreground cursor-pointer w-fit"
                             variant="outline"
                             type="button"
                             onClick={() => navigate("/admin/companies")}

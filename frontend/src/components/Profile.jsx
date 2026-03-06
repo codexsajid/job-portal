@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Navbar from './shared/Navbar'
 import { Avatar, AvatarImage } from './ui/avatar'
 import { Contact, Mail, Pen } from 'lucide-react'
@@ -8,21 +9,26 @@ import AppliedJobTables from './shared/AppliedJobTables'
 import UpdateProfileDialog from './UpdateProfileDialog'
 import { useSelector } from 'react-redux'
 import { useGetAppliedJobs } from './hook/useGetAppliedJobs'
+import useGetCompanyById from './hook/useGetCompanyById'
 
 
 
 const Profile = () => {
-    useGetAppliedJobs()
-    const [open, setOpen] = useState(false);
     const { user } = useSelector((store) => store.auth);
+    const { singleCompany } = useSelector((store) => store.company);
+
+    useGetAppliedJobs(user?.role === "user");
+    useGetCompanyById(user?.profile?.company);
+
+    const [open, setOpen] = useState(false);
 
     return (
         <div>
             <Navbar />
-            <div className="w-full bg-gray-50 min-h-screen">
+            <div className="w-full bg-background min-h-screen">
                 <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6">
                     {/* Profile Card */}
-                    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-3 sm:p-4 md:p-6">
+                    <div className="bg-card border border-border rounded-lg shadow-sm p-3 sm:p-4 md:p-6">
                         <div className="flex justify-between items-start mb-4">
                             <div className="flex items-center gap-3">
                                 <Avatar className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
@@ -30,7 +36,7 @@ const Profile = () => {
                                 </Avatar>
                                 <div className="flex-1 min-w-0">
                                     <h1 className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl truncate">{user?.fullname}</h1>
-                                    <p className="text-xs sm:text-xs md:text-sm text-gray-600 line-clamp-2">{user?.profile?.bio}</p>
+                                    <p className="text-xs sm:text-xs md:text-sm text-muted-foreground line-clamp-2">{user?.profile?.bio}</p>
                                 </div>
                             </div>
                             <Button onClick={() => setOpen(true)} variant="outline" className="cursor-pointer flex items-center gap-1 px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs flex-shrink-0 ml-2">
@@ -50,36 +56,91 @@ const Profile = () => {
                             </div>
                         </div>
 
-                        <div className="mt-4 sm:mt-6">
-                            <h2 className="font-bold text-sm sm:text-base md:text-lg mb-2 sm:mb-3">Skills</h2>
-                            <div className="flex flex-wrap gap-1 sm:gap-2 max-h-32 overflow-y-auto">
-                                {
-                                    user?.profile?.skills.length !== 0 ? user?.profile?.skills.map((item, index) => <Badge key={index} className="text-xs whitespace-nowrap">{item}</Badge>) : <span className="text-xs sm:text-sm text-gray-500">NA</span>
-                                }
-                            </div>
-                        </div>
+                        {user?.role === "user" ? (
+                            <>
+                                <div className="mt-4 sm:mt-6">
+                                    <h2 className="font-bold text-sm sm:text-base md:text-lg mb-2 sm:mb-3">Skills</h2>
+                                    <div className="flex flex-wrap gap-1 sm:gap-2 max-h-32 overflow-y-auto">
+                                        {
+                                            user?.profile?.skills.length !== 0 ? user?.profile?.skills.map((item, index) => <Badge key={index} className="text-xs whitespace-nowrap">{item}</Badge>) : <span className="text-xs sm:text-sm text-muted-foreground">NA</span>
+                                        }
+                                    </div>
+                                </div>
 
-                        <div className="mt-4 sm:mt-6">
-                            <h2 className="font-bold text-sm sm:text-base md:text-lg mb-2">Resume</h2>
-                            {user?.profile?.resume ? (
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href={user.profile.resume}
-                                    className="text-blue-600 text-xs sm:text-sm hover:underline cursor-pointer break-all"
-                                >
-                                    {user.profile.resumeOriginalName || "Resume"}
-                                </a>
-                            ) : (
-                                <span className="text-xs sm:text-sm text-gray-500">NA</span>
-                            )}
-                        </div>
-                    </div>
+                                <div className="mt-4 sm:mt-6">
+                                    <h2 className="font-bold text-sm sm:text-base md:text-lg mb-2">Resume</h2>
+                                    {user?.profile?.resume ? (
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href={user.profile.resume}
+                                            className="text-blue-600 text-xs sm:text-sm hover:underline cursor-pointer break-all"
+                                        >
+                                            {user.profile.resumeOriginalName || "Resume"}
+                                        </a>
+                                    ) : (
+                                        <span className="text-xs sm:text-sm text-muted-foreground">NA</span>
+                                    )}
+                                </div>
 
-                    {/* Applied Jobs Section */}
-                    <div className="bg-white rounded-lg shadow-sm p-3 sm:p-4 md:p-6 mt-4 sm:mt-6 mb-6">
-                        <h2 className="font-bold text-base sm:text-lg md:text-xl mb-3 sm:mb-4">Applied Jobs</h2>
-                        <AppliedJobTables />
+                                {/* Applied Jobs Section */}
+                                <div className="bg-card border border-border rounded-lg shadow-sm p-3 sm:p-4 md:p-6 mt-4 sm:mt-6 mb-6">
+                                    <h2 className="font-bold text-base sm:text-lg md:text-xl mb-3 sm:mb-4">Applied Jobs</h2>
+                                    <AppliedJobTables />
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="mt-4 sm:mt-6">
+                                    <h2 className="font-bold text-sm sm:text-base md:text-lg mb-2">Recruiter Info</h2>
+                                    <p className="text-sm sm:text-base text-muted-foreground">Use the recruiter dashboard to manage your company and job listings.</p>
+                                </div>
+
+                                <div className="mt-4 sm:mt-6">
+                                    <h2 className="font-bold text-sm sm:text-base md:text-lg mb-2">Company Info</h2>
+                                    {singleCompany ? (
+                                        <div className="bg-card border border-border rounded-lg shadow-sm p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-start">
+                                            {singleCompany.logo && (
+                                                <img
+                                                    src={singleCompany.logo}
+                                                    alt={`${singleCompany.name} logo`}
+                                                    className="w-20 h-20 object-cover rounded-md shadow-sm"
+                                                />
+                                            )}
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className="font-semibold text-base sm:text-lg">{singleCompany.name}</h3>
+                                                <p className="text-sm sm:text-base text-muted-foreground mt-1 line-clamp-3">
+                                                    {singleCompany.description || 'No description provided.'}
+                                                </p>
+                                                <div className="flex flex-wrap gap-2 mt-3">
+                                                    {singleCompany.location && (
+                                                        <Badge className="text-xs">{singleCompany.location}</Badge>
+                                                    )}
+                                                    {singleCompany.website && (
+                                                        <a
+                                                            href={singleCompany.website.startsWith('http') ? singleCompany.website : `https://${singleCompany.website}`}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="text-xs sm:text-sm text-blue-600 hover:underline break-all"
+                                                        >
+                                                            {singleCompany.website}
+                                                        </a>
+                                                    )}
+                                                </div>
+
+                                                <div className="mt-3">
+                                                    <Button asChild size="sm">
+                                                        <Link to={`/admin/companies/${singleCompany._id}`}>Manage Company</Link>
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <p className="text-xs sm:text-sm text-muted-foreground">Zoho Corporation is an Indian software company founded in 1996 by Sridhar Vembu and Tony Thomas. Headquartered in Chennai, it develops cloud‑based business tools such as CRM, project management, and accounting software</p>
+                                    )}
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
