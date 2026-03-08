@@ -10,6 +10,8 @@ import { LogOut, User2, Bookmark, Moon, Sun } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/authSlice";
+import { setAllCompany, setSingleCompany } from "../redux/companySlice";
+import { setAllAdminJobs } from "../redux/jobSlice";
 import { toast } from "sonner";
 import { USER_END_POINT_URL } from "../utiles/urls";
 import axios from "axios";
@@ -26,6 +28,9 @@ const Navbar = () => {
             const res = await axios.get(`${USER_END_POINT_URL}/logout`, { withCredentials: true })
             if (res.data.success) {
                 dispatch(setUser(null))
+                dispatch(setAllCompany([]))
+                dispatch(setSingleCompany(null))
+                dispatch(setAllAdminJobs([]))
                 toast.success(res.data.message)
                 navigate('/login')
             }
