@@ -41,7 +41,7 @@ const AdminJobsTable = () => {
                             </TableRow>
                         ) : (
                             allAdminJobs?.map(job => (
-                                <TableRow key={job._id}>
+                                <TableRow key={job._id} className="hover:bg-muted/50 transition-colors cursor-default">
                                     <TableCell className='text-xs sm:text-sm'>{job?.company?.name}</TableCell>
                                     <TableCell className='text-xs sm:text-sm'>{job?.title}</TableCell>
                                     <TableCell className='text-xs sm:text-sm'>
@@ -85,9 +85,9 @@ const AdminJobsTable = () => {
                         <p className='text-xs text-muted-foreground/80 mt-2'>You have not created any job yet.</p>
                     </div>
                 ) : (
-                    <div className='space-y-3'>
+                    <div className='space-y-4'>
                         {allAdminJobs?.map(job => (
-                            <div key={job._id} className='bg-card border border-border rounded-lg p-4 shadow-sm hover:shadow-md transition'>
+                            <div key={job._id} className='bg-card border border-border/50 rounded-xl p-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300'>
                                 <div className='flex items-start justify-between gap-3'>
                                     <div className='min-w-0 flex-1'>
                                         <h3 className='font-semibold text-sm truncate'>{job?.title}</h3>

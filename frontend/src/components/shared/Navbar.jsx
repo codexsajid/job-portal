@@ -41,26 +41,28 @@ const Navbar = () => {
     }
 
     return (
-        <div className="bg-background border-b border-border w-full">
+        <div className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border shadow-sm transition-all duration-300">
             <div className="flex justify-between items-center w-full mx-auto max-w-6xl h-auto sm:h-16 px-3 sm:px-6 lg:px-8 py-2 sm:py-0">
-                <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold whitespace-nowrap">
-                    Job<span className="text-red-500">Portal</span>
-                </h1>
+                <Link to="/">
+                    <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-black tracking-tight whitespace-nowrap hover:opacity-90 transition-opacity">
+                        Job<span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Portal</span>
+                    </h1>
+                </Link>
 
                 <div className="flex items-center gap-1 sm:gap-3 md:gap-6 lg:gap-12 flex-wrap">
-                    <ul className="flex font-medium items-center gap-1 sm:gap-2 md:gap-3 lg:gap-5 text-xs sm:text-sm md:text-base ">
+                    <ul className="flex font-medium items-center gap-1 sm:gap-2 md:gap-3 lg:gap-5 text-xs sm:text-sm md:text-base">
                         {
                             user && user.role == "recruiter" ? (
                                 <>
-                                    <li className="px-1 sm:px-0"><Link to="/admin/companies">Companies</Link></li>
-                                    <li className="px-1 sm:px-0"><Link to="/admin/jobs">Jobs</Link></li>
+                                    <li className="px-1 sm:px-0"><Link to="/admin/companies" className="hover:text-primary transition-colors">Companies</Link></li>
+                                    <li className="px-1 sm:px-0"><Link to="/admin/jobs" className="hover:text-primary transition-colors">Jobs</Link></li>
                                 </>
                             ) :
                                 (
                                     <>
-                                        <li className="px-1 sm:px-0"><Link to="/">Home</Link></li>
-                                        <li className="px-1 sm:px-0"><Link to="/jobs">Jobs</Link></li>
-                                        <li className="px-1 sm:px-0"><Link to="/browse">Browse</Link></li>
+                                        <li className="px-1 sm:px-0"><Link to="/" className="hover:text-primary transition-colors">Home</Link></li>
+                                        <li className="px-1 sm:px-0"><Link to="/jobs" className="hover:text-primary transition-colors">Jobs</Link></li>
+                                        <li className="px-1 sm:px-0"><Link to="/browse" className="hover:text-primary transition-colors">Browse</Link></li>
                                     </>
                                 )
                         }

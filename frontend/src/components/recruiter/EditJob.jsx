@@ -134,7 +134,7 @@ const EditJob = () => {
                 <h1 className='font-bold text-lg sm:text-xl'>Edit Job</h1>
             </div>
 
-            <div className='border border-border rounded-lg shadow-sm p-4 sm:p-6 md:p-8 bg-card'>
+            <div className='border border-border/50 rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 bg-card'>
                 <form onSubmit={handleSubmit} className='space-y-6'>
                     {/* Job Title */}
                     <div>
@@ -256,8 +256,16 @@ const EditJob = () => {
                     {/* Buttons */}
                     <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6'>
                         <Button
+                            type="button"
+                            variant="outline"
+                            className="w-full sm:flex-1 border-border/50"
+                            onClick={() => navigate('/admin/jobs')}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
                             type="submit"
-                            className="w-full sm:flex-1"
+                            className="w-full sm:flex-1 bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md hover:opacity-90 transition-opacity"
                             disabled={loading}
                         >
                             {loading ? (
@@ -268,14 +276,6 @@ const EditJob = () => {
                             ) : (
                                 'Update Job'
                             )}
-                        </Button>
-                        <Button
-                            type="button"
-                            variant="outline"
-                            className="w-full sm:flex-1"
-                            onClick={() => navigate('/admin/jobs')}
-                        >
-                            Cancel
                         </Button>
                     </div>
                 </form>

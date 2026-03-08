@@ -43,7 +43,7 @@ const CompaniesTable = () => {
                             </TableRow>
                         ) : (
                             allCompany?.map(company => (
-                                <TableRow key={company._id} className='hover:bg-muted/20'>
+                                <TableRow key={company._id} className='hover:bg-muted/50 transition-colors cursor-default'>
                                     <TableCell>
                                         <Avatar className='h-10 w-10'>
                                             <AvatarImage
@@ -89,9 +89,9 @@ const CompaniesTable = () => {
                         <p className='text-sm text-muted-foreground/80 mt-2'>You have not registered any company yet.</p>
                     </div>
                 ) : (
-                    <div className='space-y-3'>
+                    <div className='space-y-4'>
                         {allCompany?.map(company => (
-                            <div key={company._id} className='bg-card border border-border rounded-lg p-4 shadow-sm hover:shadow-md transition'>
+                            <div key={company._id} className='bg-card border border-border/50 rounded-xl p-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300'>
                                 <div className='flex items-start justify-between gap-3'>
                                     <div className='flex items-center gap-3 flex-1 min-w-0'>
                                         <Avatar className='h-12 w-12 flex-shrink-0'>

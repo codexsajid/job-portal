@@ -94,12 +94,14 @@ export const updateCompanyById = async (req, res) => {
     try {
         const { name, description, website, location } = req.body;
         const file = req.file;
-        // idhar cloudinary ayega
-        const fileUri = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-        const logo = cloudResponse.secure_url;
 
-        const updateData = { name, description, website, location, logo };
+        const updateData = { name, description, website, location };
+
+        if (file) {
+            const fileUri = getDataUri(file);
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+            updateData.logo = cloudResponse.secure_url;
+        }
 
         const company = await Company.findByIdAndUpdate(req.params.id, updateData, { new: true });
 

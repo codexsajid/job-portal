@@ -78,7 +78,7 @@ const CompanySetup = () => {
     return (
         <div>
             <Navbar />
-            <div className="max-w-2xl mx-auto my-4 sm:my-6 p-3 sm:p-4 md:p-6 border border-border rounded-lg shadow-sm bg-card">
+            <div className="max-w-2xl mx-auto my-6 sm:my-10 p-6 sm:p-8 md:p-10 border border-border/50 rounded-2xl shadow-xl bg-card">
                 <form onSubmit={submitHandler}>
                     <div className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-8">
                         <Button
@@ -157,7 +157,7 @@ const CompanySetup = () => {
 
                     <div className="mt-8">
                         {
-                            loading ? <Button type="submit" className={`w-full`}><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className={`w-full`}>Update</Button>
+                            loading ? <Button type="submit" className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md"><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md hover:opacity-90 transition-opacity">Update Profile</Button>
                         }
                     </div>
                 </form>

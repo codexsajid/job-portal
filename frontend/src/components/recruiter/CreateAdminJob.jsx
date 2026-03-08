@@ -66,7 +66,7 @@ const CreateAdminJob = () => {
     return (
         <div>
             <Navbar />
-            <div className="max-w-4xl mx-auto my-4 sm:my-6 p-3 sm:p-4 md:p-6 shadow-xl bg-card border border-border rounded-lg">
+            <div className="max-w-4xl mx-auto my-6 sm:my-10 p-6 sm:p-8 md:p-10 shadow-xl bg-card border border-border/50 rounded-2xl">
                 <form onSubmit={submitHandler}>
                     <div className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-8">
                         <Button
@@ -190,7 +190,7 @@ const CreateAdminJob = () => {
 
                     <div className="mt-8 space-y-4">
                         {
-                            loading ? <Button type="submit" className={`w-full`}><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className={`w-full`}>Post New Job</Button>
+                            loading ? <Button type="submit" className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md"><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md hover:opacity-90 transition-opacity">Post New Job</Button>
                         }
                         {
                             allCompany.length === 0 && <p className='text-xs text-red-600 font-bold text-center'>*Please register a company first, before posting a job.</p>

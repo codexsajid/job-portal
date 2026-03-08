@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-sans: 'Outfit', sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -45,80 +46,81 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: #F8FAFC;
-  --foreground: #0F172A;
-  --card: #FFFFFF;
-  --card-foreground: #0F172A;
-  --popover: #FFFFFF;
-  --popover-foreground: #0F172A;
-  --primary: #6366F1;
-  --primary-foreground: #FFFFFF;
-  --secondary: #22C55E;
-  --secondary-foreground: #FFFFFF;
-  --muted: #F1F5F9;
-  --muted-foreground: #64748B;
-  --accent: #0EA5E9;
-  --accent-foreground: #0F172A;
-  --destructive: #EF4444;
-  --border: #E2E8F0;
-  --input: #FFFFFF;
-  --ring: rgba(99, 102, 241, 0.5);
-  --chart-1: #FBBF24;
-  --chart-2: #34D399;
-  --chart-3: #60A5FA;
-  --chart-4: #A78BFA;
-  --chart-5: #F472B6;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #0F172A;
-  --sidebar-primary: #6366F1;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #0EA5E9;
-  --sidebar-accent-foreground: #0F172A;
-  --sidebar-border: rgba(226, 232, 240, 0.5);
-  --sidebar-ring: rgba(99, 102, 241, 0.5);
+  --radius: 0.8rem;
+  --background: #fdfdfd;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --primary: #4f46e5; /* Vibrant indigo */
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #1f2937;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #ef4444;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #4f46e5;
+  --chart-1: #e23670;
+  --chart-2: #2662d9;
+  --chart-3: #2eb88a;
+  --chart-4: #e88c30;
+  --chart-5: #af57db;
+  --sidebar: #f4f4f5;
+  --sidebar-foreground: #18181b;
+  --sidebar-primary: #18181b;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #f4f4f5;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: #4f46e5;
 }
 
 .dark {
-  --background: #0F172A;
-  --foreground: #E2E8F0;
-  --card: rgba(15, 23, 42, 0.96);
-  --card-foreground: #E2E8F0;
-  --popover: rgba(15, 23, 42, 0.96);
-  --popover-foreground: #E2E8F0;
-  --primary: #8B5CF6;
-  --primary-foreground: #FFFFFF;
-  --secondary: #22C55E;
-  --secondary-foreground: #0F172A;
-  --muted: rgba(148, 163, 184, 0.24);
-  --muted-foreground: #CBD5E1;
-  --accent: #38BDF8;
-  --accent-foreground: #0F172A;
-  --destructive: #F87171;
-  --border: rgba(226, 232, 240, 0.12);
-  --input: rgba(226, 232, 240, 0.1);
-  --ring: rgba(99, 102, 241, 0.5);
-  --chart-1: #FACC15;
-  --chart-2: #34D399;
-  --chart-3: #60A5FA;
-  --chart-4: #A78BFA;
-  --chart-5: #F472B6;
-  --sidebar: rgba(15, 23, 42, 0.96);
-  --sidebar-foreground: #E2E8F0;
-  --sidebar-primary: #8B5CF6;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #38BDF8;
-  --sidebar-accent-foreground: #0F172A;
-  --sidebar-border: rgba(226, 232, 240, 0.12);
-  --sidebar-ring: rgba(99, 102, 241, 0.5);
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #121214;
+  --card-foreground: #fafafa;
+  --popover: #121214;
+  --popover-foreground: #fafafa;
+  --primary: #6366f1; /* Vibrant indigo */
+  --primary-foreground: #ffffff;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+  --destructive: #f87171;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #6366f1;
+  --chart-1: #e23670;
+  --chart-2: #2662d9;
+  --chart-3: #2eb88a;
+  --chart-4: #e88c30;
+  --chart-5: #af57db;
+  --sidebar: #121214;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #6366f1;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #27272a;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #27272a;
+  --sidebar-ring: #6366f1;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 font-sans;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary transition-colors duration-300;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
