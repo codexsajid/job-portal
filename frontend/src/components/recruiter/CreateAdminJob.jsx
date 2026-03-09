@@ -190,7 +190,7 @@ const CreateAdminJob = () => {
 
                     <div className="mt-8 space-y-4">
                         {
-                            loading ? <Button type="submit" className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md"><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md hover:opacity-90 transition-opacity">Post New Job</Button>
+                            loading ? <Button type="submit" className="w-full bg-[#0f172a] hover:bg-[#1f2937] text-white my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className="w-full bg-[#0f172a] hover:bg-[#1f2937] text-white my-4">Post New Job</Button>
                         }
                         {
                             allCompany.length === 0 && <p className='text-xs text-red-600 font-bold text-center'>*Please register a company first, before posting a job.</p>

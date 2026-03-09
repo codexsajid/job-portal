@@ -48,7 +48,7 @@ const CreateCompany = () => {
                 </div>
                 <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 my-6 sm:my-8'>
                     <Button onClick={() => navigate("/admin/companies")} variant='outline' className="cursor-pointer w-full sm:w-auto border-border/50">Cancel</Button>
-                    <Button className="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md hover:opacity-90 transition-opacity" onClick={() => registerCompany()}>Continue</Button>
+                    <Button className="cursor-pointer w-full sm:w-auto bg-[#0f172a] hover:bg-[#1f2937] text-white" onClick={() => registerCompany()}>Continue</Button>
                 </div>
             </div>
         </div>

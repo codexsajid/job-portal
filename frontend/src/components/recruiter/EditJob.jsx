@@ -265,7 +265,7 @@ const EditJob = () => {
                         </Button>
                         <Button
                             type="submit"
-                            className="w-full sm:flex-1 bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md hover:opacity-90 transition-opacity"
+                            className="w-full sm:flex-1 bg-[#0f172a] hover:bg-[#1f2937] text-white"
                             disabled={loading}
                         >
                             {loading ? (

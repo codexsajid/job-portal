@@ -44,8 +44,8 @@ const Navbar = () => {
         <div className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border shadow-sm transition-all duration-300">
             <div className="flex justify-between items-center w-full mx-auto max-w-6xl h-auto sm:h-16 px-3 sm:px-6 lg:px-8 py-2 sm:py-0">
                 <Link to="/">
-                    <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-black tracking-tight whitespace-nowrap hover:opacity-90 transition-opacity">
-                        Job<span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Portal</span>
+                    <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-black tracking-tight whitespace-nowrap">
+                        Job<span className="text-[#F83002]">Portal</span>
                     </h1>
                 </Link>
 
