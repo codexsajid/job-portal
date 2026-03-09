@@ -27,8 +27,8 @@ export const sendOtp = async (req, res) => {
         user.otpExpiry = Date.now() + 5 * 60 * 1000
         await user.save()
 
-        // Send Forgot Password OTP email
-        await sendForgotPasswordOtpEmail(user.email, user.fullname, otp);
+        // Send Forgot Password OTP email in the background
+        sendForgotPasswordOtpEmail(user.email, user.fullname, otp).catch(err => console.error("Forgot Password OTP Email failed:", err));
 
         return res.status(200).json({
             message: "OTP sent successfully",
@@ -105,8 +105,8 @@ export const resetPassword = async (req, res) => {
         user.password = hashedPassword;
         await user.save();
 
-        // Send password reset confirmation email
-        await sendPasswordResetEmail(email, user.fullname);
+        // Send password reset confirmation email in the background
+        sendPasswordResetEmail(email, user.fullname).catch(err => console.error("Password reset email failed:", err));
 
         return res.status(200).json({
             message: "Password reset successfully",

@@ -56,7 +56,8 @@ export const register = async (req, res) => {
             });
 
         }
-        await sendOtpEmail(newUser.email, newUser.fullname, otp);
+        // Send email in the background so it doesn't block the response
+        sendOtpEmail(newUser.email, newUser.fullname, otp).catch(err => console.error("OTP Email failed:", err));
 
         return res.status(201).json({
             message: "Account created. Check your email for OTP verification.",
@@ -101,7 +102,8 @@ export const verifySignupOtp = async (req, res) => {
         user.otpVerify = true;
         await user.save();
 
-        await sendWelcomeEmail(user.email, user.fullname);
+        // Send email in the background
+        sendWelcomeEmail(user.email, user.fullname).catch(err => console.error("Welcome Email failed:", err));
 
         return res.status(200).json({
             message: "OTP verified successfully",
