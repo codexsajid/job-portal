@@ -16,9 +16,9 @@ import { APPLICANT_END_POINT_URL } from "../utiles/urls";
 import { setAppliedJobs } from "../redux/jobSlice";
 
 const getStatusClass = (status) => {
-    if (status === "rejected") return "bg-red-500";
-    if (status === "pending") return "bg-muted";
-    return "bg-green-400";
+    if (status === "rejected") return "bg-red-500 text-white";
+    if (status === "pending") return "bg-gray-500 text-white dark:bg-gray-600";
+    return "bg-green-500 text-white";
 };
 
 const AppliedJobTables = () => {

@@ -95,10 +95,10 @@ const ApplicantsTable = () => {
                                     <TableCell>
                                         <Badge
                                             className={`${applicant.status?.toLowerCase() === "rejected"
-                                                ? "bg-destructive"
+                                                ? "bg-destructive text-white"
                                                 : applicant.status?.toLowerCase() === "pending"
-                                                    ? "bg-muted"
-                                                    : "bg-secondary"
+                                                    ? "bg-gray-500 text-white dark:bg-gray-600"
+                                                    : "bg-green-500 text-white"
                                                 }`}
                                         >
                                             {applicant?.status}
@@ -203,10 +203,10 @@ const ApplicantsTable = () => {
                                 <div className="mt-2">
                                     <Badge
                                         className={`${applicant.status?.toLowerCase() === "rejected"
-                                            ? "bg-destructive"
+                                            ? "bg-destructive text-white"
                                             : applicant.status?.toLowerCase() === "pending"
-                                                ? "bg-muted"
-                                                : "bg-secondary"
+                                                ? "bg-gray-500 text-white dark:bg-gray-600"
+                                                : "bg-green-500 text-white"
                                             }`}
                                     >
                                         {applicant?.status}
