@@ -10,13 +10,36 @@ import {
 } from '../ui/table'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import { Edit2, MoreHorizontal } from 'lucide-react'
+import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
+import { COMPANY_END_POINT_URL } from '../utiles/urls'
+import { setAllCompany } from '../redux/companySlice'
+import { toast } from 'sonner'
 
 const CompaniesTable = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { allCompany } = useSelector(store => store.company)
+
+    const handleDelete = async (companyId) => {
+        if (window.confirm('Are you sure you want to delete this company?')) {
+            try {
+                const res = await axios.delete(`${COMPANY_END_POINT_URL}/deleteCompany/${companyId}`, { withCredentials: true })
+                if (res.data.success) {
+                    toast.success(res.data.message)
+                    // Refetch companies
+                    const getCompany = await axios.get(`${COMPANY_END_POINT_URL}/getAllCompanies`, { withCredentials: true })
+                    if (getCompany.data.success) {
+                        dispatch(setAllCompany(getCompany.data.data))
+                    }
+                }
+            } catch (error) {
+                toast.error(error.response?.data?.message || 'Error deleting company')
+            }
+        }
+    }
 
     return (
         <>
@@ -61,15 +84,14 @@ const CompaniesTable = () => {
                                             <PopoverTrigger className='hover:bg-muted/20 p-2 rounded-md transition'>
                                                 <MoreHorizontal size={18} />
                                             </PopoverTrigger>
-                                            <PopoverContent
-                                                className="w-32 p-2"
-                                                onClick={() =>
-                                                    navigate(`/admin/companies/${company._id}`)
-                                                }
-                                            >
-                                                <div className='flex gap-2 items-center hover:bg-muted/20 p-2 rounded cursor-pointer'>
+                                            <PopoverContent className="w-32 p-2">
+                                                <div className='flex gap-2 items-center hover:bg-muted/20 p-2 rounded cursor-pointer' onClick={() => navigate(`/admin/companies/${company._id}`)}>
                                                     <Edit2 size={18} />
                                                     <span className='text-sm'>Edit</span>
+                                                </div>
+                                                <div className='flex gap-2 items-center hover:bg-red-50 p-2 rounded cursor-pointer text-red-600' onClick={() => handleDelete(company._id)}>
+                                                    <Trash2 size={18} />
+                                                    <span className='text-sm'>Delete</span>
                                                 </div>
                                             </PopoverContent>
                                         </Popover>
@@ -111,15 +133,14 @@ const CompaniesTable = () => {
                                         <PopoverTrigger className='hover:bg-muted/20 p-2 rounded-md transition flex-shrink-0'>
                                             <MoreHorizontal size={18} />
                                         </PopoverTrigger>
-                                        <PopoverContent
-                                            className="w-32 p-2"
-                                            onClick={() =>
-                                                navigate(`/admin/companies/${company._id}`)
-                                            }
-                                        >
-                                            <div className='flex gap-2 items-center hover:bg-muted/20 p-2 rounded cursor-pointer'>
+                                        <PopoverContent className="w-32 p-2">
+                                            <div className='flex gap-2 items-center hover:bg-muted/20 p-2 rounded cursor-pointer' onClick={() => navigate(`/admin/companies/${company._id}`)}>
                                                 <Edit2 size={18} />
                                                 <span className='text-sm'>Edit</span>
+                                            </div>
+                                            <div className='flex gap-2 items-center hover:bg-red-50 p-2 rounded cursor-pointer text-red-600' onClick={() => handleDelete(company._id)}>
+                                                <Trash2 size={18} />
+                                                <span className='text-sm'>Delete</span>
                                             </div>
                                         </PopoverContent>
                                     </Popover>

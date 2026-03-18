@@ -1,23 +1,19 @@
 import { Application } from "../models/application.model.js";
 import Job from "../models/job.model.js";
-
 export const applyJob = async (req, res) => {
     try {
 
         if (!req.user || !req.user.userId) {
             return res.status(401).json({ message: "Unauthorized" })
         }
-
         const userId = req.user.userId;
         const jobId = req.params.id
-
         if (!jobId) {
             return res.status(400).json({
                 message: "Job id is required.",
                 success: false
             })
         }
-        // check if the user has already applied for the job
         const existingApplication = await Application.findOne({ job: jobId, applicant: userId })
         if (existingApplication) {
             return res.status(400).json({
@@ -32,12 +28,10 @@ export const applyJob = async (req, res) => {
                 success: false
             })
         }
-        // create a new application
         const newApplication = await Application.create({
             job: jobId,
             applicant: userId,
         });
-
         job.applications.push(newApplication._id);
         await job.save()
         return res.status(201).json({
@@ -67,13 +61,13 @@ export const getAppliedJob = async (req, res) => {
                 path: 'job',
                 options: { sort: { createdAt: -1 } },
                 populate: {
-                    path: 'company', // assuming Job schema has a company field
+                    path: 'company',
                     options: { sort: { createdAt: -1 } }
                 }
             })
             .populate({
-                path: 'applicant', // correct field name instead of "user"
-                select: 'name email' // optional: limit fields returned
+                path: 'applicant',
+                select: 'name email'
             });
 
         if (!application || application.length === 0) {
@@ -180,13 +174,11 @@ export const deleteApplication = async (req, res) => {
             });
         }
 
-        // Remove the application from the job's applications array
         await Job.updateOne(
             { _id: application.job },
             { $pull: { applications: applicationId } }
         );
 
-        // Delete the application
         await Application.findByIdAndDelete(applicationId);
 
         return res.status(200).json({

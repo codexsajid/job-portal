@@ -1,4 +1,5 @@
 import { Company } from "../models/company.model.js";
+import Job from "../models/job.model.js";
 import cloudinary from "../utile/cloudinary.js";
 import getDataUri from "../utile/datauri.js";
 
@@ -43,7 +44,7 @@ export const getAllCompanies = async (req, res) => {
     try {
 
         const userId = req.user.userId;
-        
+
         const companies = await Company.find({ userId });
 
         if (!companies) {
@@ -121,6 +122,45 @@ export const updateCompanyById = async (req, res) => {
             message: "Internal server error",
             success: false,
             error: error.message,
+        });
+    }
+};
+
+export const deleteCompany = async (req, res) => {
+    try {
+        const companyId = req.params.id;
+        const company = await Company.findById(companyId);
+        if (!company) {
+            return res.status(404).json({
+                message: "Company not found",
+                success: false
+            });
+        }
+        // Check if user owns the company
+        if (company.userId.toString() !== req.user.userId) {
+            return res.status(403).json({
+                message: "Unauthorized",
+                success: false
+            });
+        }
+        // Check if there are jobs
+        const jobs = await Job.find({ company: companyId });
+        if (jobs.length > 0) {
+            return res.status(400).json({
+                message: "Cannot delete company with existing jobs",
+                success: false
+            });
+        }
+        await Company.findByIdAndDelete(companyId);
+        return res.status(200).json({
+            message: "Company deleted successfully",
+            success: true
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false,
+            error: error.message
         });
     }
 };
